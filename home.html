@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EstFlix - Stream smarter</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="brand-link" href="home.html">EstFlix</a>
+        <a class="link" href="home.html?type=movie">Movies</a>
+        <a class="link" href="home.html?type=series">Series</a>
+      </div>
+
+      <div class="nav-center">
+        <label class="search-shell grow">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="navSearch" type="search" placeholder="Search titles, moods, or genres" />
+        </label>
+      </div>
+
+      <div class="nav-right">
+        <a class="link" href="myList.html">My List</a>
+        <a class="link" href="profiles.html">Change profile</a>
+        <a class="link" href="admin.html">Admin</a>
+        <button class="btn" id="logoutBtn" type="button">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero card hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">New this week</p>
+        <h1>Watch the stories that fit the moment.</h1>
+        <p class="hero-text">
+          A cleaner streaming hub for movies and series with fast discovery,
+          genre filtering, and a stronger featured browse experience.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="home.html?type=movie">Explore movies</a>
+          <a class="btn ghost" href="home.html?type=series">Browse series</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <p class="panel-label">Featured catalog</p>
+        <h2>Streaming-ready layout</h2>
+        <p class="muted">Top picks, search, and responsive cards tuned for a media storefront.</p>
+      </aside>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Discover</p>
+          <h2 id="browseTitle">Popular titles</h2>
+        </div>
+        <p id="browseMeta" class="muted"></p>
+      </div>
+
+      <div class="filter-row" id="filterRow"></div>
+      <div id="contentGrid" class="poster-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/pages/homePage.js"></script>
+  <script type="module" src="js/pages/bootstrap.js"></script>
+</body>
+</html>

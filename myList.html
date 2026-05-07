@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EstFlix - My List</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="brand-link" href="home.html">EstFlix</a>
+        <a class="link" href="home.html">Browse</a>
+      </div>
+      <div class="nav-center"></div>
+      <div class="nav-right">
+        <a class="link" href="profiles.html">Change profile</a>
+        <a class="link" href="admin.html">Admin</a>
+        <button class="btn" id="logoutBtn" type="button">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">Saved titles</p>
+        <h1>My List.</h1>
+        <p class="hero-text">All the titles bookmarked from the active profile, ready to revisit later.</p>
+      </div>
+      <aside class="hero-panel">
+        <p class="panel-label">Library</p>
+        <h2>Favorites by profile</h2>
+        <p class="muted">Removing a title here only affects the currently active profile.</p>
+      </aside>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">My selection</p>
+          <h2 id="myListTitle">Your saved titles</h2>
+        </div>
+        <p id="myListMeta" class="muted"></p>
+      </div>
+
+      <div id="myListGrid" class="poster-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/pages/myListPage.js"></script>
+  <script type="module" src="js/pages/bootstrap.js"></script>
+</body>
+</html>
