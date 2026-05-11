@@ -79,7 +79,7 @@ export class SeedService {
         categoryId: action.id,
         year: 2008,
         rating: 4.9,
-        imageUrl: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/eC3EDsKJwv7RtWhG2aQai6d9jw5.jpg",
         type: "movie",
         runtimeMinutes: 152,
         cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart"]
@@ -91,7 +91,7 @@ export class SeedService {
         categoryId: scifi.id,
         year: 2010,
         rating: 4.8,
-        imageUrl: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/ms1bJvwa4BJycBakQ7afcedGlwY.jpg",
         type: "movie",
         runtimeMinutes: 148,
         cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"]
@@ -103,7 +103,7 @@ export class SeedService {
         categoryId: scifi.id,
         year: 2014,
         rating: 4.7,
-        imageUrl: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/6ricSDD83BClJsFdGB6x7cM0MFQ.jpg",
         type: "movie",
         runtimeMinutes: 169,
         cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"]
@@ -115,7 +115,7 @@ export class SeedService {
         categoryId: scifi.id,
         year: 1999,
         rating: 4.8,
-        imageUrl: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/lDqMDI3xpbB9UQRyeXfei0MXhqb.jpg",
         type: "movie",
         runtimeMinutes: 136,
         cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"]
@@ -127,7 +127,7 @@ export class SeedService {
         categoryId: drama.id,
         year: 2019,
         rating: 4.5,
-        imageUrl: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/miFPa7bgu2wEcJYLjB4hrg2PG4E.jpg",
         type: "movie",
         runtimeMinutes: 122,
         cast: ["Joaquin Phoenix", "Robert De Niro", "Zazie Beetz"]
@@ -139,7 +139,7 @@ export class SeedService {
         categoryId: drama.id,
         year: 2019,
         rating: 4.6,
-        imageUrl: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/bik2BZjmVjeE6LOZqtuTjb4jJPQ.jpg",
         type: "movie",
         runtimeMinutes: 132,
         cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"]
@@ -151,7 +151,7 @@ export class SeedService {
         categoryId: comedy.id,
         year: 2014,
         rating: 4.4,
-        imageUrl: "https://image.tmdb.org/t/p/w500/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/yabOguSrb8ffUXCkI6t8Rw7xtSh.jpg",
         type: "movie",
         runtimeMinutes: 99,
         cast: ["Ralph Fiennes", "Tony Revolori", "Tilda Swinton"]
@@ -187,7 +187,7 @@ export class SeedService {
         categoryId: comedy.id,
         year: 2005,
         rating: 4.6,
-        imageUrl: "https://image.tmdb.org/t/p/w500/qWnJzyZhyy74gjpSjIXWmuk0ifX.jpg",
+        imageUrl: "https://image.tmdb.org/t/p/w500/e7BoS8uUnew9ioS6reqtK9matqy.jpg",
         type: "series",
         runtimeMinutes: 22,
         cast: ["Steve Carell", "John Krasinski", "Jenna Fischer"]

@@ -1,4 +1,4 @@
-const KEY = "estflix_db_v2";
+const KEY = "estflix_db_v3";
 
 function defaultDb() {
   return {
