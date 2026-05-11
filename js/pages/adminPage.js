@@ -140,8 +140,13 @@ function render() {
   function renderCategoryTable(currentDb) {
     return el("div", { className: "table-wrap" }, [
       el("table", { className: "table compact" }, [
-        el("thead", {}, [el("tr", {}, [el("th", { text: "Name" }), el("th", { text: "Action" })])]),
+        el("thead", {}, [el("tr", {}, [
+          el("th", { text: "Id" }),
+          el("th", { text: "Name" }),
+          el("th", { text: "Actions" })
+        ])]),
         el("tbody", {}, currentDb.categories.map(category => el("tr", {}, [
+          el("td", { text: String(category.id) }),
           el("td", { text: category.name }),
           el("td", {}, [
             el("div", { className: "hero-actions" }, [
@@ -155,11 +160,24 @@ function render() {
   }
 
   function renderContentTable(currentDb) {
+    const categoriesById = new Map(currentDb.categories.map(c => [c.id, c]));
     return el("div", { className: "table-wrap" }, [
       el("table", { className: "table compact" }, [
-        el("thead", {}, [el("tr", {}, [el("th", { text: "Title" }), el("th", { text: "Type" }), el("th", { text: "Action" })])]),
+        el("thead", {}, [el("tr", {}, [
+          el("th", { text: "Id" }),
+          el("th", { text: "Title" }),
+          el("th", { text: "Genre" }),
+          el("th", { text: "Year" }),
+          el("th", { text: "Rating" }),
+          el("th", { text: "Type" }),
+          el("th", { text: "Actions" })
+        ])]),
         el("tbody", {}, currentDb.contents.map(content => el("tr", {}, [
+          el("td", { text: String(content.id) }),
           el("td", { text: content.title }),
+          el("td", { text: categoriesById.get(content.categoryId)?.name ?? "—" }),
+          el("td", { text: String(content.year) }),
+          el("td", { text: content.rating.toFixed(1) }),
           el("td", { text: content.type }),
           el("td", {}, [
             el("div", { className: "hero-actions" }, [
@@ -243,6 +261,15 @@ function render() {
       if (!title || !description || !imageUrl || !Number.isFinite(categoryId)) {
         formMessage.className = "msg error";
         formMessage.textContent = "Fill in the required title fields.";
+        return;
+      }
+
+      const duplicate = currentDb.contents.find(c =>
+        c.title.toLowerCase() === title.toLowerCase() && c.id !== editingContent?.id
+      );
+      if (duplicate) {
+        formMessage.className = "msg error";
+        formMessage.textContent = "A title with that name already exists.";
         return;
       }
 

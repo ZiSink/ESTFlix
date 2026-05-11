@@ -7,6 +7,36 @@ import { el, clear } from "../ui/dom.js";
 SeedService.ensure();
 wireLogout();
 
+const featuredTitle      = document.getElementById("featuredTitle");
+const featuredDesc       = document.getElementById("featuredDesc");
+const featuredActions    = document.getElementById("featuredActions");
+const featuredLabel      = document.getElementById("featuredLabel");
+const featuredPanelTitle = document.getElementById("featuredPanelTitle");
+const featuredPanelMeta  = document.getElementById("featuredPanelMeta");
+const featuredPoster     = document.getElementById("featuredPoster");
+
+function renderFeatured(db) {
+  const featured = db.contents.slice().sort((a, b) => b.rating - a.rating)[0];
+  if (!featured) return;
+  const category = db.categories.find(c => c.id === featured.categoryId);
+
+  if (featuredPoster) {
+    featuredPoster.setAttribute("src", featured.imageUrl);
+    featuredPoster.setAttribute("alt", featured.title);
+  }
+  if (featuredTitle)      featuredTitle.textContent = featured.title;
+  if (featuredDesc)       featuredDesc.textContent  = featured.tagline || featured.description;
+  if (featuredLabel)      featuredLabel.textContent = featured.type === "series" ? "Series" : "Movie";
+  if (featuredPanelTitle) featuredPanelTitle.textContent = `★ ${featured.rating.toFixed(1)}  ·  ${category?.name ?? ""}`;
+  if (featuredPanelMeta)  featuredPanelMeta.textContent  = `${featured.year} · ${featured.runtimeMinutes ? `${featured.runtimeMinutes} min` : ""}`;
+
+  if (featuredActions) {
+    clear(featuredActions);
+    featuredActions.appendChild(el("a", { className: "btn primary", href: `detail.html?id=${featured.id}` }, ["Watch now"]));
+    featuredActions.appendChild(el("a", { className: "btn ghost", href: "home.html?type=movie" }, ["Browse movies"]));
+  }
+}
+
 const grid = document.getElementById("contentGrid");
 const qInput = document.getElementById("navSearch");
 const filterRow = document.getElementById("filterRow");
@@ -69,6 +99,7 @@ function renderChips(categories, activeType, activeCategory, query) {
 
 function render() {
   const db = StorageService.load();
+  renderFeatured(db);
   const session = AuthService.getSession();
   const activeProfileId = session.activeProfileId;
   const type = readType();

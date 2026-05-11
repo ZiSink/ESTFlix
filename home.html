@@ -34,21 +34,19 @@
   <main class="container">
     <section class="hero card hero-home">
       <div class="hero-copy">
-        <p class="eyebrow">New this week</p>
-        <h1>Watch the stories that fit the moment.</h1>
-        <p class="hero-text">
-          A cleaner streaming hub for movies and series with fast discovery,
-          genre filtering, and a stronger featured browse experience.
-        </p>
-        <div class="hero-actions">
+        <p class="eyebrow">Now streaming</p>
+        <h1 id="featuredTitle">EstFlix</h1>
+        <p class="hero-text" id="featuredDesc">Discover movies and series, organised by category.</p>
+        <div class="hero-actions" id="featuredActions">
           <a class="btn primary" href="home.html?type=movie">Explore movies</a>
           <a class="btn ghost" href="home.html?type=series">Browse series</a>
         </div>
       </div>
       <aside class="hero-panel">
-        <p class="panel-label">Featured catalog</p>
-        <h2>Streaming-ready layout</h2>
-        <p class="muted">Top picks, search, and responsive cards tuned for a media storefront.</p>
+        <img id="featuredPoster" class="hero-poster-img" src="" alt="" />
+        <p class="panel-label" id="featuredLabel">Featured</p>
+        <h2 id="featuredPanelTitle">Top pick</h2>
+        <p class="muted" id="featuredPanelMeta"></p>
       </aside>
     </section>
 
@@ -67,6 +65,5 @@
   </main>
 
   <script type="module" src="js/pages/homePage.js"></script>
-  <script type="module" src="js/pages/bootstrap.js"></script>
 </body>
 </html>

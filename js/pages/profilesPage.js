@@ -3,6 +3,8 @@ import { StorageService } from "../services/storageService.js";
 import { AuthService } from "../services/authService.js";
 import { wireLogout } from "./logoutWireup.js";
 import { el, clear } from "../ui/dom.js";
+import { Profile } from "../models/profile.js";
+import { IdService } from "../services/idService.js";
 
 SeedService.ensure();
 wireLogout();
@@ -80,6 +82,46 @@ function render() {
   profileButtons.forEach((button, index) => {
     button.addEventListener("click", () => activateProfile(profiles[index].id));
   });
+
+  const profileNameInput = el("input", { type: "text", placeholder: "Profile name" });
+  const createMsg = el("p", { className: "msg" });
+
+  const createForm = el("form", { className: "stack" }, [
+    el("p", { className: "eyebrow", text: "Add profile" }),
+    el("label", { className: "field-label" }, ["Name", profileNameInput]),
+    el("div", { className: "hero-actions" }, [
+      el("button", { className: "btn primary", type: "submit" }, ["Create profile"])
+    ]),
+    createMsg
+  ]);
+
+  createForm.addEventListener("submit", event => {
+    event.preventDefault();
+    const name = profileNameInput.value.trim();
+    if (!name) {
+      createMsg.className = "msg error";
+      createMsg.textContent = "Profile name is required.";
+      return;
+    }
+    const freshDb = StorageService.load();
+    const duplicate = freshDb.profiles.find(p => p.userId === user.id && p.name.toLowerCase() === name.toLowerCase());
+    if (duplicate) {
+      createMsg.className = "msg error";
+      createMsg.textContent = "You already have a profile with that name.";
+      return;
+    }
+    freshDb.profiles.push(new Profile({
+      id: IdService.next(freshDb, "profile"),
+      userId: user.id,
+      name,
+      role: "USER",
+      avatarUrl: ""
+    }));
+    StorageService.save(freshDb);
+    render();
+  });
+
+  host.appendChild(el("section", { className: "card" }, [createForm]));
 }
 
 render();
