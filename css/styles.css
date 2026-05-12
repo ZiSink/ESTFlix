@@ -376,6 +376,7 @@ input:focus, select:focus{
   gap: 10px;
   color: var(--muted);
 }
+.check-row input[type="checkbox"]{ width: auto; }
 .notice{
   padding: 12px 14px;
   border-radius: 14px;
@@ -450,6 +451,19 @@ input:focus, select:focus{
   display:grid;
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   gap: 18px;
+}
+.trailer-wrap{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: #000;
+  margin-top: 12px;
+}
+.trailer-wrap iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .empty-state{

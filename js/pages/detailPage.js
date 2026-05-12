@@ -123,7 +123,11 @@ function render() {
         el("section", { className: "card" }, [
           el("p", { className: "eyebrow", text: "Trailer" }),
           el("h2", { text: `Preview: ${item.title}` }),
-          el("p", { className: "muted", text: `A compact trailer card for ${item.title}. Replace this block later with a real video embed or episode list.` })
+          item.trailerUrl
+            ? el("div", { className: "trailer-wrap" }, [
+                el("iframe", { src: item.trailerUrl, allowfullscreen: "true", allow: "autoplay; encrypted-media; picture-in-picture" })
+              ])
+            : el("p", { className: "muted", text: "No trailer available." })
         ]),
         el("section", { className: "card" }, [
           el("p", { className: "eyebrow", text: "Cast" }),

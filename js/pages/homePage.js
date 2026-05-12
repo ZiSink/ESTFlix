@@ -127,7 +127,7 @@ function render() {
   renderChips(db.categories, type, categoryId, query);
 
   clear(grid);
-  if (qInput && qInput.value !== query) qInput.value = query;
+  if (qInput && qInput.value.trim() !== query) qInput.value = query;
 
   if (items.length === 0) {
     grid.appendChild(el("div", { className: "empty-state card" }, [

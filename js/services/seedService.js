@@ -82,7 +82,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/eC3EDsKJwv7RtWhG2aQai6d9jw5.jpg",
         type: "movie",
         runtimeMinutes: 152,
-        cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart"]
+        cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
+        trailerUrl: "https://www.youtube.com/embed/EXeTwQWrcwY"
       },
       {
         title: "Inception",
@@ -94,7 +95,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/ms1bJvwa4BJycBakQ7afcedGlwY.jpg",
         type: "movie",
         runtimeMinutes: 148,
-        cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"]
+        cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"],
+        trailerUrl: "https://www.youtube.com/embed/YoHD9XEInc0"
       },
       {
         title: "Interstellar",
@@ -106,7 +108,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/6ricSDD83BClJsFdGB6x7cM0MFQ.jpg",
         type: "movie",
         runtimeMinutes: 169,
-        cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"]
+        cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
+        trailerUrl: "https://www.youtube.com/embed/zSWdZVtXT7E"
       },
       {
         title: "The Matrix",
@@ -118,7 +121,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/lDqMDI3xpbB9UQRyeXfei0MXhqb.jpg",
         type: "movie",
         runtimeMinutes: 136,
-        cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"]
+        cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"],
+        trailerUrl: "https://www.youtube.com/embed/vKQi3bBA1y8"
       },
       {
         title: "Joker",
@@ -130,7 +134,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/miFPa7bgu2wEcJYLjB4hrg2PG4E.jpg",
         type: "movie",
         runtimeMinutes: 122,
-        cast: ["Joaquin Phoenix", "Robert De Niro", "Zazie Beetz"]
+        cast: ["Joaquin Phoenix", "Robert De Niro", "Zazie Beetz"],
+        trailerUrl: "https://www.youtube.com/embed/zAGVQLHvwOY"
       },
       {
         title: "Parasite",
@@ -142,7 +147,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/bik2BZjmVjeE6LOZqtuTjb4jJPQ.jpg",
         type: "movie",
         runtimeMinutes: 132,
-        cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"]
+        cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"],
+        trailerUrl: "https://www.youtube.com/embed/5xH0HfJHsaY"
       },
       {
         title: "The Grand Budapest Hotel",
@@ -154,7 +160,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/yabOguSrb8ffUXCkI6t8Rw7xtSh.jpg",
         type: "movie",
         runtimeMinutes: 99,
-        cast: ["Ralph Fiennes", "Tony Revolori", "Tilda Swinton"]
+        cast: ["Ralph Fiennes", "Tony Revolori", "Tilda Swinton"],
+        trailerUrl: "https://www.youtube.com/embed/1Fg9a1yuQo4"
       },
       {
         title: "Breaking Bad",
@@ -166,7 +173,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
         type: "series",
         runtimeMinutes: 47,
-        cast: ["Bryan Cranston", "Aaron Paul", "Anna Gunn"]
+        cast: ["Bryan Cranston", "Aaron Paul", "Anna Gunn"],
+        trailerUrl: "https://www.youtube.com/embed/HhesaQXLuRY"
       },
       {
         title: "Stranger Things",
@@ -178,7 +186,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
         type: "series",
         runtimeMinutes: 51,
-        cast: ["Millie Bobby Brown", "Finn Wolfhard", "Winona Ryder"]
+        cast: ["Millie Bobby Brown", "Finn Wolfhard", "Winona Ryder"],
+        trailerUrl: "https://www.youtube.com/embed/b9EkMc79ZSU"
       },
       {
         title: "The Office",
@@ -190,7 +199,8 @@ export class SeedService {
         imageUrl: "https://image.tmdb.org/t/p/w500/e7BoS8uUnew9ioS6reqtK9matqy.jpg",
         type: "series",
         runtimeMinutes: 22,
-        cast: ["Steve Carell", "John Krasinski", "Jenna Fischer"]
+        cast: ["Steve Carell", "John Krasinski", "Jenna Fischer"],
+        trailerUrl: "https://www.youtube.com/embed/LHOtClSmNkM"
       }
     ];
 
@@ -199,6 +209,14 @@ export class SeedService {
         id: IdService.next(db, "content"),
         ...content
       }));
+    }
+
+    // backfill trailerUrl on existing content that pre-dates this field
+    const trailerByTitle = Object.fromEntries(seedContents.map(c => [c.title, c.trailerUrl]));
+    for (const content of db.contents) {
+      if (!content.trailerUrl && trailerByTitle[content.title]) {
+        content.trailerUrl = trailerByTitle[content.title];
+      }
     }
 
     StorageService.save(db);

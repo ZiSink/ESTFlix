@@ -1,5 +1,5 @@
 export class Content {
-  constructor({ id, title, description, categoryId, year, rating, imageUrl, type, runtimeMinutes, cast, tagline }) {
+  constructor({ id, title, description, categoryId, year, rating, imageUrl, type, runtimeMinutes, cast, tagline, trailerUrl }) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -11,5 +11,6 @@ export class Content {
     this.runtimeMinutes = runtimeMinutes ?? null;
     this.cast = Array.isArray(cast) ? cast : [];
     this.tagline = tagline ?? "";
+    this.trailerUrl = trailerUrl ?? null;
   }
 }
