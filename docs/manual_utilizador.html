@@ -142,7 +142,7 @@
       <ol>
         <li>Registo de conta</li>
         <li>Login</li>
-        <li>Seleção de perfil</li>
+        <li>Seleção, edição e eliminação de perfis</li>
         <li>Página principal (Home)</li>
         <li>Detalhe de conteúdo</li>
         <li>A minha lista</li>
@@ -220,7 +220,10 @@
     <div class="step-num">3</div>
     <div class="step-body">
       <h4>Popular a base de dados</h4>
-      <p>Executar o script de seed para criar utilizadores demo e o catálogo inicial:</p>
+      <p>Escolher uma das duas opções:</p>
+      <p><strong>Opção A — SQL puro</strong> (recomendada para avaliação, não requer Node.js):</p>
+      <pre>mysql -u root -proot estflix &lt; seed.sql</pre>
+      <p><strong>Opção B — Node.js</strong>:</p>
       <pre>node seed.js</pre>
       <p>Serão criados dois utilizadores de demonstração:</p>
       <ul>
@@ -326,7 +329,7 @@ Credenciais demo: admin@estflix.test / admin  |  viewer@estflix.test / viewer</p
   A password é sensível a maiúsculas/minúsculas.
 </div>
 
-<h2>3.3 Seleção de perfil</h2>
+<h2>3.3 Seleção, edição e eliminação de perfis</h2>
 <p>
   Cada conta pode ter múltiplos perfis (ex: "Admin", "Cinephile"). Após o login, é apresentada a
   página de seleção de perfil.
@@ -357,8 +360,38 @@ Credenciais demo: admin@estflix.test / admin  |  viewer@estflix.test / viewer</p
   │   Admin          │  │   Cinephile      │
   │ <span class="pill">ADMIN</span> <span class="pill">Active</span>   │  │ <span class="pill">USER</span>  <span class="pill">Available</span>│
   │ [ Continue ]     │  │ [ Use profile ]  │
+  │ [Edit] [Delete]  │  │ [Edit] [Delete]  │
   └──────────────────┘  └──────────────────┘
+
+  ─── Add profile ───────────────────────────────
+  Name  [ New profile name ]   [ Create profile ]
   </div>
+</div>
+
+<h3>Editar um perfil</h3>
+<ol>
+  <li>Clicar em <em>Edit</em> no cartão do perfil a alterar.</li>
+  <li>O formulário <em>Add profile</em> passa a mostrar <em>Save changes</em> e preenche-se com o nome atual.</li>
+  <li>Alterar o nome e clicar em <em>Save changes</em>.</li>
+  <li>Clicar em <em>Cancel</em> para cancelar a edição sem guardar.</li>
+</ol>
+
+<h3>Eliminar um perfil</h3>
+<ol>
+  <li>Clicar em <em>Delete</em> no cartão do perfil a eliminar.</li>
+  <li>O perfil é removido imediatamente juntamente com o seu histórico e favoritos.</li>
+  <li>Se o perfil eliminado era o ativo, o sistema muda automaticamente para outro perfil disponível.</li>
+</ol>
+
+<div class="error-box">
+  <strong>Não é possível eliminar o único perfil da conta.</strong> Se a conta tiver apenas um perfil,
+  o botão <em>Delete</em> não tem efeito e é apresentada uma mensagem de aviso.
+</div>
+
+<div class="info-box">
+  <strong>Link de navegação dinâmico:</strong> Na barra de navegação da página principal, o link
+  mostra <em>Change profile</em> quando existe sessão ativa, ou <em>Login</em> quando o utilizador
+  não está autenticado.
 </div>
 
 <h2>3.4 Página principal (Home)</h2>
@@ -569,6 +602,10 @@ O elenco deve ser separado por vírgulas (ex: <code>Christian Bale, Heath Ledger
     <tr>
       <td>Aceder a /admin sem sessão</td>
       <td>Mensagem para fazer login primeiro.</td>
+    </tr>
+    <tr>
+      <td>Eliminar o único perfil da conta</td>
+      <td>Mensagem <em>"Cannot delete the only profile."</em> O perfil não é eliminado.</td>
     </tr>
     <tr>
       <td>Apagar categoria com conteúdos</td>

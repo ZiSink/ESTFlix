@@ -156,7 +156,8 @@ ESTFlix/
 ├── server.js              Ponto de entrada — Express app, middlewares, rotas
 ├── db.js                  Pool de ligações MySQL (mysql2/promise)
 ├── schema.sql             Script DDL de criação da base de dados
-├── seed.js                Popular a BD com dados iniciais e utilizadores demo
+├── seed.sql               Inserts SQL puros (alternativa ao seed.js)
+├── seed.js                Popular a BD com dados iniciais via Node.js
 ├── package.json           Dependências npm
 │
 ├── routes/
@@ -176,7 +177,20 @@ ESTFlix/
 │   └── ui/
 │       └── dom.js         Funções el() e clear() para construção do DOM
 │
-├── css/styles.css         Estilos globais (design system próprio)
+├── css/
+│   ├── styles.css         Ponto de entrada CSS (apenas @import)
+│   ├── variables.css      Variáveis CSS (cores, fontes, espaçamentos)
+│   ├── base.css           Reset e estilos base do documento
+│   ├── typography.css     Headings, parágrafos, links
+│   ├── navbar.css         Barra de navegação
+│   ├── buttons.css        Botões e variantes
+│   ├── forms.css          Inputs, labels, formulários
+│   ├── layout.css         Grid, container, hero, secções
+│   ├── poster.css         Cards/posters de conteúdo
+│   ├── profile.css        Cartões de perfil
+│   ├── admin.css          Painel de administração
+│   ├── detail.css         Página de detalhe de conteúdo
+│   └── responsive.css     Media queries (max-width: 820px e 500px)
 └── docs/                  Manuais (este ficheiro + manual_utilizador.html)
 </pre>
 
@@ -430,6 +444,26 @@ export const api = {
   O perfil ativo é um estado de sessão transitório (pode ser alterado sem novo login). Armazena-se em
   <code>req.session.activeProfileId</code> em vez de no objeto Passport para não obrigar a re-serialização
   do utilizador. A rota <code>PUT /api/auth/profile</code> atualiza este valor.
+</p>
+
+<h2>CSS modular com @import</h2>
+<p>
+  Em vez de um único ficheiro <code>styles.css</code> monolítico, os estilos estão divididos em 12 módulos
+  temáticos (variáveis, base, navbar, botões, formulários, etc.), todos importados por um
+  ficheiro de entrada <code>styles.css</code> via <code>@import</code>. Isto torna cada área do design
+  independente, facilita a localização e modificação de estilos específicos e evita conflitos
+  de nomes em equipas. A ordem dos imports é relevante: <code>responsive.css</code> é sempre o último,
+  garantindo que os media queries sobrepõem as regras base.
+</p>
+
+<h2>seed.sql como alternativa ao seed.js</h2>
+<p>
+  Para facilitar a avaliação sem obrigar à execução de <code>node seed.js</code>, foi criado um ficheiro
+  <code>seed.sql</code> com inserts SQL puros. Os hashes bcrypt das passwords de demonstração estão
+  pré-gerados e hardcoded no ficheiro. As foreign keys são resolvidas via subqueries
+  (<code>SELECT id FROM categories WHERE name = 'Action'</code>), tornando os inserts independentes
+  de IDs auto-incrementados. O ficheiro usa <code>INSERT IGNORE</code>, sendo idempotente (pode ser
+  executado mais do que uma vez sem erro).
 </p>
 
 <h2>Servidor estático com fallback SPA</h2>
