@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Manual de Utilizador — ESTFlix</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a1a; line-height: 1.65; }
+
+  /* Cover */
+  .cover {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    min-height: 100vh; text-align: center; padding: 60px 40px;
+    background: #0f172a; color: #fff;
+    page-break-after: always;
+  }
+  .cover .logo { font-size: 56px; font-weight: 900; letter-spacing: -2px; color: #e50914; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 16px; color: #94a3b8; margin-bottom: 60px; }
+  .cover h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .cover .uc { font-size: 14px; color: #94a3b8; margin-bottom: 60px; }
+  .cover table { border-collapse: collapse; color: #e2e8f0; font-size: 13px; }
+  .cover table td { padding: 6px 16px; text-align: left; }
+  .cover table td:first-child { color: #94a3b8; text-align: right; }
+  .cover .inst { margin-top: 60px; font-size: 12px; color: #64748b; }
+
+  /* Body layout */
+  .page { max-width: 820px; margin: 0 auto; padding: 48px 48px; }
+
+  h1 { font-size: 22px; font-weight: 700; margin: 40px 0 12px; border-bottom: 2px solid #e50914; padding-bottom: 6px; color: #0f172a; }
+  h2 { font-size: 16px; font-weight: 700; margin: 28px 0 8px; color: #0f172a; }
+  h3 { font-size: 14px; font-weight: 700; margin: 20px 0 6px; color: #334155; }
+  p  { margin-bottom: 10px; }
+  ul, ol { margin: 8px 0 12px 24px; }
+  li { margin-bottom: 4px; }
+
+  /* TOC */
+  .toc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 24px 32px; margin: 24px 0 40px; page-break-after: always; }
+  .toc h2 { border: none; margin-top: 0; font-size: 18px; }
+  .toc ol { counter-reset: toc; list-style: none; margin-left: 0; }
+  .toc > ol > li { font-weight: 700; margin-top: 10px; font-size: 14px; }
+  .toc ol ol { margin-left: 20px; font-weight: 400; font-size: 13px; }
+
+  /* Screen mockups */
+  .screen {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    page-break-inside: avoid;
+  }
+  .screen-bar {
+    background: #1e293b;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #94a3b8;
+  }
+  .screen-bar .dots { display: flex; gap: 5px; }
+  .screen-bar .dot  { width: 10px; height: 10px; border-radius: 50%; }
+  .screen-bar .dot.r { background: #e50914; }
+  .screen-bar .dot.y { background: #f59e0b; }
+  .screen-bar .dot.g { background: #22c55e; }
+  .screen-bar .url  { flex: 1; text-align: center; background: #0f172a; border-radius: 4px; padding: 2px 12px; }
+  .screen-body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Consolas', monospace;
+    font-size: 11.5px;
+    padding: 20px 24px;
+    line-height: 1.8;
+    white-space: pre;
+  }
+  .screen-body .red    { color: #e50914; }
+  .screen-body .white  { color: #fff; font-weight: bold; }
+  .screen-body .muted  { color: #64748b; }
+  .screen-body .green  { color: #4ade80; }
+  .screen-body .yellow { color: #fbbf24; }
+  .screen-body .blue   { color: #60a5fa; }
+  .screen-body .pill   { background: #1e293b; border-radius: 4px; padding: 1px 6px; }
+
+  /* Step cards */
+  .steps { display: flex; flex-direction: column; gap: 16px; margin: 16px 0; }
+  .step  { display: flex; gap: 16px; align-items: flex-start; background: #f8fafc; border-radius: 8px; padding: 14px 16px; border: 1px solid #e2e8f0; }
+  .step-num { min-width: 28px; height: 28px; background: #e50914; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .step-body h4 { font-weight: 700; margin-bottom: 4px; }
+
+  code { font-family: 'Consolas', monospace; background: #f1f5f9; border-radius: 4px; padding: 1px 5px; font-size: 12px; }
+  pre  { font-family: 'Consolas', monospace; background: #1e293b; color: #e2e8f0; border-radius: 6px; padding: 16px; font-size: 12px; margin: 12px 0; overflow-x: auto; }
+
+  .info-box { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 12px; }
+  .warn-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 12px; }
+  .error-box { background: #fef2f2; border-left: 4px solid #e50914; padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 12px; }
+
+  @media print {
+    .cover { page-break-after: always; }
+    .toc   { page-break-after: always; }
+    .screen, .step { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ CAPA -->
+<div class="cover">
+  <div class="logo">ESTFlix</div>
+  <div class="subtitle">Plataforma Web de Streaming de Conteúdos Multimédia</div>
+  <h1>Manual de Utilizador</h1>
+  <div class="uc">Programação Web — CTPSI — IPS &nbsp;·&nbsp; Ano letivo 2025/2026</div>
+  <table>
+    <tr><td>Alunos</td><td>Rodrigo &nbsp;·&nbsp; N.º 2025126234</td></tr>
+    <tr><td></td><td>Zivile Sink &nbsp;·&nbsp; N.º 2025166759</td></tr>
+    <tr><td>E-mail</td><td>info@evolsolutions.pt</td></tr>
+    <tr><td>Data</td><td>Junho 2026</td></tr>
+  </table>
+  <div class="inst">Instituto Politécnico de Setúbal — Escola Superior de Tecnologia de Setúbal</div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════════════════ ÍNDICE -->
+<div class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li>Introdução
+      <ol>
+        <li>O que é a ESTFlix?</li>
+        <li>Para quem é?</li>
+        <li>Funcionalidades disponíveis</li>
+      </ol>
+    </li>
+    <li>Instalação e configuração
+      <ol>
+        <li>Requisitos</li>
+        <li>Passos de instalação</li>
+        <li>Iniciar o servidor</li>
+      </ol>
+    </li>
+    <li>Guia de utilização
+      <ol>
+        <li>Registo de conta</li>
+        <li>Login</li>
+        <li>Seleção de perfil</li>
+        <li>Página principal (Home)</li>
+        <li>Detalhe de conteúdo</li>
+        <li>A minha lista</li>
+        <li>Painel de administração</li>
+        <li>Logout</li>
+      </ol>
+    </li>
+    <li>Situações de erro e comportamentos de exceção</li>
+  </ol>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 1. INTRODUÇÃO -->
+<h1>1. Introdução</h1>
+
+<h2>1.1 O que é a ESTFlix?</h2>
+<p>
+  A <strong>ESTFlix</strong> é uma plataforma web de streaming de conteúdos multimédia desenvolvida
+  no âmbito da Unidade Curricular de Programação Web do curso CTPSI do IPS.
+  Inspirada em plataformas como Netflix, permite aos utilizadores explorar um catálogo de filmes e
+  séries, guardar favoritos, acompanhar o histórico de visualizações e receber recomendações personalizadas.
+</p>
+<p>
+  A aplicação é totalmente web, não requer instalação no computador do utilizador final, e é acedida
+  através de qualquer browser moderno via <code>http://localhost:3000</code>.
+</p>
+
+<h2>1.2 Para quem é?</h2>
+<ul>
+  <li><strong>Utilizador comum:</strong> explora o catálogo, escolhe um perfil, guarda favoritos e vê o histórico.</li>
+  <li><strong>Administrador:</strong> gere o catálogo (criar, editar, apagar conteúdos e categorias) através do painel de administração.</li>
+</ul>
+
+<h2>1.3 Funcionalidades disponíveis</h2>
+<ul>
+  <li>Registo e login com e-mail e password</li>
+  <li>Gestão de múltiplos perfis por conta</li>
+  <li>Navegação e pesquisa no catálogo (por tipo, categoria e texto)</li>
+  <li>Adicionar/remover conteúdos da lista de favoritos</li>
+  <li>Registo automático de histórico de visualizações</li>
+  <li>Recomendações personalizadas com base no histórico</li>
+  <li>Área de administração: CRUD completo de conteúdos e categorias</li>
+</ul>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 2. INSTALAÇÃO -->
+<h1>2. Instalação e Configuração</h1>
+
+<h2>2.1 Requisitos</h2>
+<ul>
+  <li><strong>Node.js</strong> versão 18 ou superior — <code>node --version</code></li>
+  <li><strong>MySQL</strong> 8.x (via MAMP, XAMPP, ou instalação direta)</li>
+  <li>Browser moderno (Chrome, Firefox, Edge, Safari)</li>
+</ul>
+
+<h2>2.2 Passos de instalação</h2>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Iniciar o MySQL</h4>
+      <p>Abrir o MAMP e clicar em <strong>Start Servers</strong>. Aguardar até o ícone do MySQL ficar verde.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Criar a base de dados</h4>
+      <p>Na pasta do projeto, executar o script de criação das tabelas:</p>
+      <pre>mysql -u root -proot &lt; schema.sql</pre>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Popular a base de dados</h4>
+      <p>Executar o script de seed para criar utilizadores demo e o catálogo inicial:</p>
+      <pre>node seed.js</pre>
+      <p>Serão criados dois utilizadores de demonstração:</p>
+      <ul>
+        <li><code>admin@estflix.test</code> / <code>admin</code> — perfil ADMIN</li>
+        <li><code>viewer@estflix.test</code> / <code>viewer</code> — perfil USER</li>
+      </ul>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Instalar dependências (primeira vez)</h4>
+      <pre>npm install</pre>
+    </div>
+  </div>
+</div>
+
+<h2>2.3 Iniciar o servidor</h2>
+<pre>node server.js</pre>
+<p>O terminal deverá mostrar:</p>
+<pre>ESTFlix a correr em http://localhost:3000
+Credenciais demo: admin@estflix.test / admin  |  viewer@estflix.test / viewer</pre>
+
+<div class="info-box">
+  Abrir o browser em <strong>http://localhost:3000</strong>. A aplicação não funciona corretamente
+  se aberta diretamente como ficheiro (<code>file://</code>) — necessita sempre do servidor Node.js.
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 3. GUIA -->
+<h1>3. Guia de Utilização</h1>
+
+<h2>3.1 Registo de conta</h2>
+<p>Ao aceder à aplicação pela primeira vez, é apresentada a página de login. Para criar uma nova conta:</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body"><h4>Clicar em "Create account"</h4><p>No formulário de login, clicar no separador ou botão <em>Create account</em>.</p></div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body"><h4>Preencher os dados</h4><p>Introduzir nome, endereço de e-mail e password. Todos os campos são obrigatórios.</p></div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body"><h4>Confirmar</h4><p>Clicar em <em>Register</em>. A conta é criada, o login é feito automaticamente e o utilizador é redireccionado para a página inicial.</p></div>
+  </div>
+</div>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/login.html</div>
+  </div>
+  <div class="screen-body">
+<span class="red">  ESTFlix</span>
+  <span class="muted">Stream what you love.</span>
+
+  <span class="white">  Create account</span>
+
+    Name         [ Maria Silva              ]
+    E-mail       [ maria@example.com        ]
+    Password     [ ••••••••                 ]
+
+    [ <span class="green">Register</span> ]   Already have an account? <span class="blue">Sign in</span>
+  </div>
+</div>
+
+<h2>3.2 Login</h2>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body"><h4>Introduzir credenciais</h4><p>Preencher o e-mail e a password no formulário de login.</p></div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body"><h4>Clicar em "Sign in"</h4><p>Se as credenciais estiverem corretas, o utilizador é redireccionado para a página de seleção de perfil.</p></div>
+  </div>
+</div>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/login.html</div>
+  </div>
+  <div class="screen-body">
+<span class="red">  ESTFlix</span>
+  <span class="muted">Stream what you love.</span>
+
+  <span class="white">  Sign in</span>
+
+    E-mail       [ admin@estflix.test       ]
+    Password     [ ••••••                   ]
+
+    [ <span class="green">Sign in</span> ]
+  </div>
+</div>
+
+<div class="error-box">
+  <strong>Erro:</strong> Se as credenciais forem incorretas, é apresentada a mensagem <em>"Invalid credentials."</em>
+  A password é sensível a maiúsculas/minúsculas.
+</div>
+
+<h2>3.3 Seleção de perfil</h2>
+<p>
+  Cada conta pode ter múltiplos perfis (ex: "Admin", "Cinephile"). Após o login, é apresentada a
+  página de seleção de perfil.
+</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body"><h4>Escolher um perfil</h4><p>Clicar em <em>Use profile</em> no cartão do perfil pretendido.</p></div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body"><h4>Criar perfil novo (opcional)</h4><p>Preencher o nome no formulário <em>Add profile</em> e clicar em <em>Create profile</em>.</p></div>
+  </div>
+</div>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/profiles.html</div>
+  </div>
+  <div class="screen-body">
+  Who is watching?
+  <span class="white">Choose a profile.</span>               Signed in as: admin@estflix.test
+
+  ┌──────────────────┐  ┌──────────────────┐
+  │     <span class="red">  AD  </span>        │  │     <span class="blue">  CI  </span>        │
+  │   Admin          │  │   Cinephile      │
+  │ <span class="pill">ADMIN</span> <span class="pill">Active</span>   │  │ <span class="pill">USER</span>  <span class="pill">Available</span>│
+  │ [ Continue ]     │  │ [ Use profile ]  │
+  └──────────────────┘  └──────────────────┘
+  </div>
+</div>
+
+<h2>3.4 Página principal (Home)</h2>
+<p>
+  A página inicial apresenta o catálogo completo. A barra superior permite filtrar por texto,
+  tipo (Filme / Série) e categoria.
+</p>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/home.html</div>
+  </div>
+  <div class="screen-body">
+<span class="red">  ESTFlix</span>  Home  My List  Admin               <span class="muted">Admin [Logout]</span>
+
+  <span class="white">  The Dark Knight.</span>                   <span class="pill">★ 4.9</span> <span class="pill">2008</span> <span class="pill">Action</span>
+  Batman raises the stakes in his war on crime…
+  [ <span class="green">Play</span> ]  [ Details ]
+
+  ──── Browse ────
+  [ All ] [ Movies ] [ Series ]   [ Action ▾ ]   🔍 Search…
+
+  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
+  │      │ │      │ │      │ │      │
+  │poster│ │poster│ │poster│ │poster│
+  │      │ │      │ │      │ │      │
+  │Title │ │Title │ │Title │ │Title │
+  │★ 4.8 │ │★ 4.7 │ │★ 4.6 │ │★ 4.5 │
+  └──────┘ └──────┘ └──────┘ └──────┘
+
+  ──── Recommended for you ────
+  ┌──────┐ ┌──────┐ ┌──────┐
+  │      │ │      │ │      │
+  └──────┘ └──────┘ └──────┘
+  </div>
+</div>
+
+<p><strong>Funcionalidades da página principal:</strong></p>
+<ul>
+  <li><strong>Destaque:</strong> o conteúdo com melhor classificação aparece em grande no topo.</li>
+  <li><strong>Filtros:</strong> podem ser combinados (ex: Séries de Sci-Fi com "breaking" na pesquisa).</li>
+  <li><strong>Recomendações:</strong> visíveis quando há histórico; baseadas nos géneros mais vistos.</li>
+</ul>
+
+<h2>3.5 Detalhe de conteúdo</h2>
+<p>Clicar num cartão ou no botão <em>Details</em> abre a página de detalhe.</p>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/detail.html?id=1</div>
+  </div>
+  <div class="screen-body">
+  [poster]   <span class="white">The Dark Knight</span>                      Movie
+             <span class="muted">Why so serious?</span>
+             <span class="pill">★ 4.9</span> <span class="pill">2008</span> <span class="pill">Action</span> <span class="pill">2h 32m</span>
+
+             Batman raises the stakes in his war on crime…
+
+             [ <span class="green">Play now</span> ]  [ <span class="blue">♡ Add to my list</span> ]  [ More titles ]
+
+             Watched 0 times · Active profile: Admin
+
+  ┌────────────────────────┐  ┌─────────────────────┐
+  │ Trailer                │  │ Cast                 │
+  │ [embedded YouTube]     │  │ Christian Bale       │
+  │                        │  │ Heath Ledger         │
+  └────────────────────────┘  └─────────────────────┘
+
+  More from this category:  Inception  The Matrix  Interstellar
+  </div>
+</div>
+
+<ul>
+  <li><strong>Play now:</strong> regista a visualização no histórico. O contador de visionamentos atualiza-se.</li>
+  <li><strong>Add to my list / In my list:</strong> alterna entre adicionar e remover dos favoritos.</li>
+</ul>
+
+<div class="warn-box">
+  Se não houver perfil ativo, os botões <em>Play now</em> e <em>Add to my list</em> redirecionam para o login.
+</div>
+
+<h2>3.6 A minha lista</h2>
+<p>
+  Aceder via menu <em>My List</em>. Apresenta dois painéis: <strong>favoritos</strong> e <strong>histórico</strong>.
+</p>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/mylist.html</div>
+  </div>
+  <div class="screen-body">
+  My List — Admin                        <span class="muted">2 saved titles</span>
+
+  ┌───────────────────────┐  ┌───────────────────────┐
+  │ The Dark Knight       │  │ Inception              │
+  │ 2008 • Action         │  │ 2010 • Sci-Fi          │
+  │ <span class="pill">★ 4.9</span>   [ <span class="red">Remove</span> ] │  │ <span class="pill">★ 4.8</span>   [ <span class="red">Remove</span> ] │
+  └───────────────────────┘  └───────────────────────┘
+
+  Watch history — Admin                  <span class="muted">1 title watched</span>
+
+  ┌───────────────────────┐
+  │ The Dark Knight       │
+  │ 2008 • Action         │
+  │ <span class="pill">★ 4.9</span>   <span class="muted">15/06/2026</span>   │
+  └───────────────────────┘
+  </div>
+</div>
+
+<p>Clicar em <strong>Remove</strong> elimina o título dos favoritos imediatamente (sem confirmação).</p>
+
+<h2>3.7 Painel de administração</h2>
+<p>
+  Acessível pelo menu <em>Admin</em> apenas quando o perfil ativo tem papel <strong>ADMIN</strong>.
+  Permite gerir categorias e conteúdos.
+</p>
+
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/admin.html</div>
+  </div>
+  <div class="screen-body">
+  Management
+  <span class="white">Admin console.</span>                         Signed in as: Admin
+
+  <span class="pill">10 Titles</span>   <span class="pill">4 Categories</span>
+
+  ┌─── Categories ────────────┐  ┌─── Content ──────────────────────────────┐
+  │ Add category              │  │ Create title                              │
+  │ Name [ New category ]     │  │ Title       [ __________ ]               │
+  │ [ Create category ]       │  │ Description [ __________ ]               │
+  │                           │  │ Category    [ Action    ▾]               │
+  │ Id  Name     Actions      │  │ Type        [ movie     ▾]               │
+  │ 1   Action   [Edit][Del]  │  │ Year        [ ____ ]  Rating [ ___ ]     │
+  │ 2   Drama    [Edit][Del]  │  │ Image URL   [ __________ ]               │
+  │ 3   Comedy   [Edit][Del]  │  │ Trailer URL [ __________ ]               │
+  │ 4   Sci-Fi   [Edit][Del]  │  │ Cast        [ Actor A, Actor B ]         │
+  └───────────────────────────┘  │ [ Create title ]                         │
+                                 │                                           │
+                                 │ Id  Title          Genre  Year  Rating    │
+                                 │ 1   The Dark…      Action 2008  4.9  [E][D]│
+                                 └───────────────────────────────────────────┘
+  </div>
+</div>
+
+<h3>Criar categoria</h3>
+<ol>
+  <li>Preencher o campo <em>Name</em> no formulário de categorias.</li>
+  <li>Clicar em <em>Create category</em>.</li>
+  <li>A tabela atualiza-se automaticamente.</li>
+</ol>
+
+<h3>Editar categoria</h3>
+<ol>
+  <li>Clicar em <em>Edit</em> na linha da categoria. O formulário preenche-se com o nome atual.</li>
+  <li>Alterar o nome e clicar em <em>Save changes</em>.</li>
+  <li>Clicar em <em>Cancel edit</em> para cancelar sem guardar.</li>
+</ol>
+
+<h3>Apagar categoria</h3>
+<p>Clicar em <em>Delete</em>. Se a categoria tiver conteúdos associados, é mostrada uma mensagem de erro e a categoria não é apagada.</p>
+
+<div class="error-box">
+  <strong>Erro:</strong> "Cannot delete category with associated contents." — remover ou reatribuir
+  os conteúdos dessa categoria antes de apagar.
+</div>
+
+<h3>Criar / editar conteúdo</h3>
+<p>Funciona de forma análoga às categorias. Campos obrigatórios: título, descrição e URL da imagem.
+O elenco deve ser separado por vírgulas (ex: <code>Christian Bale, Heath Ledger</code>).</p>
+
+<h2>3.8 Logout</h2>
+<p>
+  Clicar em <strong>Logout</strong> no canto superior direito. A sessão é destruída no servidor e
+  o utilizador é redireccionado para a página de login.
+</p>
+
+<div class="info-box">
+  Fechar o browser sem fazer logout não destrói a sessão imediatamente — o cookie dura 7 dias.
+  Recomenda-se fazer logout explícito em computadores partilhados.
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 4. ERROS -->
+<h1>4. Situações de Erro e Comportamentos de Exceção</h1>
+
+<table>
+  <thead>
+    <tr><th>Situação</th><th>Comportamento</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Login com credenciais erradas</td>
+      <td>Mensagem <em>"Invalid credentials."</em> no formulário. A página não recarrega.</td>
+    </tr>
+    <tr>
+      <td>Registo com e-mail já existente</td>
+      <td>Mensagem <em>"Email already in use."</em>. Sugerir login com esse e-mail.</td>
+    </tr>
+    <tr>
+      <td>Aceder a /admin sem perfil ADMIN</td>
+      <td>Mensagem de acesso negado com botão para trocar de perfil.</td>
+    </tr>
+    <tr>
+      <td>Aceder a /admin sem sessão</td>
+      <td>Mensagem para fazer login primeiro.</td>
+    </tr>
+    <tr>
+      <td>Apagar categoria com conteúdos</td>
+      <td>Erro 409 da API; mensagem visível no painel de admin.</td>
+    </tr>
+    <tr>
+      <td>Conteúdo não encontrado (URL inválida)</td>
+      <td>Página de detalhe mostra <em>"Content not found"</em> com botão de retorno.</td>
+    </tr>
+    <tr>
+      <td>Clicar Play/Favorito sem perfil ativo</td>
+      <td>Redireccionamento automático para login.html.</td>
+    </tr>
+    <tr>
+      <td>Servidor não está a correr</td>
+      <td>O browser mostra erro de ligação. Verificar que <code>node server.js</code> está em execução.</td>
+    </tr>
+    <tr>
+      <td>MySQL não está a correr</td>
+      <td>O servidor arranca mas todas as chamadas à API retornam erro 500. Iniciar o MAMP.</td>
+    </tr>
+    <tr>
+      <td>Pesquisa sem resultados</td>
+      <td>Grelha vazia com mensagem <em>"No titles match your search."</em></td>
+    </tr>
+    <tr>
+      <td>Lista de favoritos vazia</td>
+      <td>Mensagem <em>"Nothing saved yet."</em> com botão para explorar o catálogo.</td>
+    </tr>
+    <tr>
+      <td>Sem histórico (recomendações)</td>
+      <td>A secção de recomendações não aparece na home se não houver histórico.</td>
+    </tr>
+  </tbody>
+</table>
+
+</div><!-- .page -->
+</body>
+</html>

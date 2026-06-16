@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Manual Técnico — ESTFlix</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #1a1a1a; line-height: 1.65; }
+
+  /* Cover */
+  .cover {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    min-height: 100vh; text-align: center; padding: 60px 40px;
+    background: #0f172a; color: #fff;
+    page-break-after: always;
+  }
+  .cover .logo { font-size: 56px; font-weight: 900; letter-spacing: -2px; color: #e50914; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 16px; color: #94a3b8; margin-bottom: 60px; }
+  .cover h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .cover .uc { font-size: 14px; color: #94a3b8; margin-bottom: 60px; }
+  .cover table { border-collapse: collapse; color: #e2e8f0; font-size: 13px; }
+  .cover table td { padding: 6px 16px; text-align: left; }
+  .cover table td:first-child { color: #94a3b8; text-align: right; }
+  .cover .inst { margin-top: 60px; font-size: 12px; color: #64748b; }
+
+  /* Body layout */
+  .page { max-width: 820px; margin: 0 auto; padding: 48px 48px; }
+
+  h1 { font-size: 22px; font-weight: 700; margin: 40px 0 12px; border-bottom: 2px solid #e50914; padding-bottom: 6px; color: #0f172a; }
+  h2 { font-size: 16px; font-weight: 700; margin: 28px 0 8px; color: #0f172a; }
+  h3 { font-size: 14px; font-weight: 700; margin: 20px 0 6px; color: #334155; }
+  p  { margin-bottom: 10px; }
+  ul, ol { margin: 8px 0 12px 24px; }
+  li { margin-bottom: 4px; }
+
+  /* TOC */
+  .toc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 24px 32px; margin: 24px 0 40px; page-break-after: always; }
+  .toc h2 { border: none; margin-top: 0; font-size: 18px; }
+  .toc ol { counter-reset: toc; list-style: none; margin-left: 0; }
+  .toc > ol > li { font-weight: 700; margin-top: 10px; font-size: 14px; }
+  .toc ol ol { margin-left: 20px; font-weight: 400; font-size: 13px; }
+
+  /* Code & tables */
+  code, pre { font-family: 'Consolas', 'Courier New', monospace; background: #f1f5f9; border-radius: 4px; }
+  code { padding: 1px 5px; font-size: 12px; }
+  pre  { padding: 16px; font-size: 12px; overflow-x: auto; margin: 12px 0; border-left: 3px solid #e50914; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 12px; }
+  thead th { background: #0f172a; color: #fff; padding: 8px 12px; text-align: left; }
+  tbody td { padding: 7px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tbody tr:nth-child(even) td { background: #f8fafc; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .get    { background: #dbeafe; color: #1d4ed8; }
+  .post   { background: #dcfce7; color: #15803d; }
+  .put    { background: #fef9c3; color: #a16207; }
+  .delete { background: #fee2e2; color: #b91c1c; }
+
+  .info-box { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 12px; }
+  .warn-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 12px; }
+
+  .arch-diagram { background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 24px; font-family: monospace; font-size: 12px; line-height: 2; margin: 16px 0; }
+  .arch-diagram .red { color: #e50914; }
+  .arch-diagram .blue { color: #60a5fa; }
+  .arch-diagram .green { color: #4ade80; }
+  .arch-diagram .yellow { color: #fbbf24; }
+
+  @media print {
+    .cover { page-break-after: always; }
+    .toc   { page-break-after: always; }
+    h1     { page-break-before: auto; }
+    pre, table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ CAPA -->
+<div class="cover">
+  <div class="logo">ESTFlix</div>
+  <div class="subtitle">Plataforma Web de Streaming de Conteúdos Multimédia</div>
+  <h1>Manual Técnico</h1>
+  <div class="uc">Programação Web — CTPSI — IPS &nbsp;·&nbsp; Ano letivo 2025/2026</div>
+  <table>
+    <tr><td>Alunos</td><td>Rodrigo &nbsp;·&nbsp; N.º 2025126234</td></tr>
+    <tr><td></td><td>Zivile Sink &nbsp;·&nbsp; N.º 2025166759</td></tr>
+    <tr><td>E-mail</td><td>info@evolsolutions.pt</td></tr>
+    <tr><td>Data</td><td>Junho 2026</td></tr>
+  </table>
+  <div class="inst">Instituto Politécnico de Setúbal — Escola Superior de Tecnologia de Setúbal</div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════════════════ ÍNDICE -->
+<div class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li>Arquitetura do sistema
+      <ol>
+        <li>Visão geral</li>
+        <li>Estrutura de ficheiros</li>
+        <li>Fluxo de um pedido</li>
+      </ol>
+    </li>
+    <li>Entidades e API REST
+      <ol>
+        <li>Modelo de dados (diagrama)</li>
+        <li>Tabelas da base de dados</li>
+        <li>Rotas por entidade</li>
+      </ol>
+    </li>
+    <li>Autenticação e sessões</li>
+    <li>Integração frontend–backend (AJAX)</li>
+    <li>Descrição das opções tomadas</li>
+    <li>Limitações técnicas e trabalho futuro</li>
+  </ol>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 1. ARQUITETURA -->
+<h1>1. Arquitetura do Sistema</h1>
+
+<h2>1.1 Visão geral</h2>
+<p>
+  A ESTFlix segue uma arquitectura cliente–servidor de três camadas: o browser executa o
+  frontend (HTML + CSS + JavaScript com ES Modules), comunica via HTTP com um servidor
+  Node.js/Express que expõe uma API REST, e este por sua vez persiste os dados num servidor
+  MySQL gerido pelo MAMP.
+</p>
+
+<div class="arch-diagram">
+<span class="red">┌─────────────────────────────────────────────────────────┐</span>
+<span class="red">│                     BROWSER (Cliente)                   │</span>
+<span class="red">│  HTML + CSS  │  JS (ES Modules)  │  fetch / AJAX        │</span>
+<span class="red">└──────────────────────────┬──────────────────────────────┘</span>
+                           │  HTTP (porta 3000)
+<span class="blue">┌──────────────────────────▼──────────────────────────────┐</span>
+<span class="blue">│             SERVIDOR Node.js + Express                   │</span>
+<span class="blue">│  express-session  │  Passport.js  │  bcryptjs            │</span>
+<span class="blue">│  /api/auth  /api/users  /api/profiles                   │</span>
+<span class="blue">│  /api/categories  /api/contents                         │</span>
+<span class="blue">│  /api/favorites   /api/history                          │</span>
+<span class="blue">└──────────────────────────┬──────────────────────────────┘</span>
+                           │  mysql2 (porta 3306)
+<span class="green">┌──────────────────────────▼──────────────────────────────┐</span>
+<span class="green">│              MySQL (MAMP)  —  base de dados estflix      │</span>
+<span class="green">│  users · profiles · categories · contents               │</span>
+<span class="green">│  favorites · history                                     │</span>
+<span class="green">└─────────────────────────────────────────────────────────┘</span>
+</div>
+
+<h2>1.2 Estrutura de ficheiros</h2>
+<pre>
+ESTFlix/
+├── server.js              Ponto de entrada — Express app, middlewares, rotas
+├── db.js                  Pool de ligações MySQL (mysql2/promise)
+├── schema.sql             Script DDL de criação da base de dados
+├── seed.js                Popular a BD com dados iniciais e utilizadores demo
+├── package.json           Dependências npm
+│
+├── routes/
+│   ├── auth.js            Autenticação: /api/auth/me|login|logout|register|profile
+│   ├── users.js           CRUD /api/users
+│   ├── profiles.js        CRUD /api/profiles
+│   ├── categories.js      CRUD /api/categories
+│   ├── contents.js        CRUD /api/contents
+│   ├── favorites.js       /api/favorites
+│   └── history.js         /api/history + /api/history/recommendations
+│
+├── js/
+│   ├── services/
+│   │   └── apiService.js  Wrapper fetch (api.get/post/put/del)
+│   ├── pages/             Uma página JS por HTML (loginPage, homePage, …)
+│   ├── models/            Classes de domínio (Content, Category, Profile, User)
+│   └── ui/
+│       └── dom.js         Funções el() e clear() para construção do DOM
+│
+├── css/styles.css         Estilos globais (design system próprio)
+└── docs/                  Manuais (este ficheiro + manual_utilizador.html)
+</pre>
+
+<h2>1.3 Fluxo de um pedido</h2>
+<ol>
+  <li>O browser carrega <code>home.html</code> do servidor Express (static files).</li>
+  <li><code>homePage.js</code> executa <code>api.get('/contents')</code> via <code>apiService.js</code>.</li>
+  <li>O <code>fetch</code> envia <code>GET /api/contents</code> com <code>credentials: 'same-origin'</code>.</li>
+  <li>Express encaminha para <code>routes/contents.js</code>, que consulta o MySQL via <code>db.js</code>.</li>
+  <li>A rota devolve JSON; o <code>apiService</code> lança excepção se <code>!res.ok</code>.</li>
+  <li>A página usa <code>el()</code> para construir os cards no DOM (sem <code>innerHTML</code>).</li>
+</ol>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 2. ENTIDADES E API -->
+<h1>2. Entidades e API REST</h1>
+
+<h2>2.1 Modelo de dados</h2>
+<div class="arch-diagram">
+<span class="yellow">users</span>          1 ──────────── N  <span class="blue">profiles</span>
+id, email,                        id, user_id, name,
+password_hash,                    avatar_url, role
+created_at
+                                  <span class="blue">profiles</span>  1 ── N  <span class="green">favorites</span>  N ── 1  <span class="red">contents</span>
+<span class="red">contents</span>                          <span class="blue">profiles</span>  1 ── N  <span class="green">history</span>    N ── 1  <span class="red">contents</span>
+id, title, description,
+category_id, year, rating,        <span class="red">contents</span>  N ── 1  <span class="yellow">categories</span>
+image_url, type,                  category_id FK
+runtime_minutes,
+cast (JSON), tagline,
+trailer_url
+</div>
+
+<h2>2.2 Tabelas da base de dados</h2>
+
+<table>
+  <thead><tr><th>Tabela</th><th>Colunas principais</th><th>Observações</th></tr></thead>
+  <tbody>
+    <tr><td><code>users</code></td><td>id, email, password_hash, created_at</td><td>password_hash com bcrypt (factor 10)</td></tr>
+    <tr><td><code>profiles</code></td><td>id, user_id, name, avatar_url, role</td><td>role: ENUM('USER','ADMIN')</td></tr>
+    <tr><td><code>categories</code></td><td>id, name UNIQUE</td><td>—</td></tr>
+    <tr><td><code>contents</code></td><td>id, title UNIQUE, description, category_id, year, rating, image_url, type, runtime_minutes, cast, tagline, trailer_url</td><td>cast é coluna JSON; type: ENUM('movie','series')</td></tr>
+    <tr><td><code>favorites</code></td><td>profile_id, content_id, created_at</td><td>PK composta; ON DELETE CASCADE</td></tr>
+    <tr><td><code>history</code></td><td>profile_id, content_id, watched_at, times</td><td>PK composta; ON DUPLICATE KEY UPDATE times+1</td></tr>
+  </tbody>
+</table>
+
+<h2>2.3 Rotas por entidade</h2>
+
+<h3>Autenticação — <code>/api/auth</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/auth/me</td><td>Devolve utilizador, activeProfileId e perfil da sessão</td><td>—</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/auth/register</td><td>Cria utilizador + perfil default; faz login automático</td><td>—</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/auth/login</td><td>Passport LocalStrategy; define activeProfileId na sessão</td><td>—</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/auth/logout</td><td>req.logout() + session.destroy()</td><td>✓</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/auth/profile</td><td>Altera activeProfileId na sessão</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Utilizadores — <code>/api/users</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/users</td><td>Lista todos os utilizadores (id, email, created_at)</td><td>✓</td></tr>
+    <tr><td><span class="badge get">GET</span></td><td>/api/users/:id</td><td>Detalhe de um utilizador</td><td>✓</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/users</td><td>Cria utilizador + perfil default</td><td>—</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/users/:id</td><td>Atualiza email/password (conta própria)</td><td>✓</td></tr>
+    <tr><td><span class="badge delete">DELETE</span></td><td>/api/users/:id</td><td>Elimina conta (faz logout)</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Perfis — <code>/api/profiles</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/profiles</td><td>Lista perfis do utilizador autenticado</td><td>✓</td></tr>
+    <tr><td><span class="badge get">GET</span></td><td>/api/profiles/:id</td><td>Detalhe de um perfil (verificação de propriedade)</td><td>✓</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/profiles</td><td>Cria novo perfil para o utilizador autenticado</td><td>✓</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/profiles/:id</td><td>Atualiza nome/avatar</td><td>✓</td></tr>
+    <tr><td><span class="badge delete">DELETE</span></td><td>/api/profiles/:id</td><td>Elimina perfil (e favorites/history em cascade)</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Categorias — <code>/api/categories</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/categories</td><td>Lista todas as categorias (público)</td><td>—</td></tr>
+    <tr><td><span class="badge get">GET</span></td><td>/api/categories/:id</td><td>Detalhe de categoria (público)</td><td>—</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/categories</td><td>Cria categoria; valida nome único (LOWER)</td><td>✓</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/categories/:id</td><td>Atualiza nome; valida unicidade</td><td>✓</td></tr>
+    <tr><td><span class="badge delete">DELETE</span></td><td>/api/categories/:id</td><td>Elimina; devolve 409 se tiver conteúdos associados</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Conteúdos — <code>/api/contents</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/contents</td><td>Lista; suporta ?type=, ?category=, ?q= (LIKE) (público)</td><td>—</td></tr>
+    <tr><td><span class="badge get">GET</span></td><td>/api/contents/:id</td><td>Detalhe de um conteúdo (público)</td><td>—</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/contents</td><td>Cria conteúdo; cast serializado como JSON</td><td>✓</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/contents/:id</td><td>Atualiza todos os campos</td><td>✓</td></tr>
+    <tr><td><span class="badge delete">DELETE</span></td><td>/api/contents/:id</td><td>Elimina (favorites/history em cascade)</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Favoritos — <code>/api/favorites</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/favorites</td><td>Lista favoritos; ?profileId= ou sessão</td><td>✓</td></tr>
+    <tr><td><span class="badge get">GET</span></td><td>/api/favorites/:profileId/:contentId</td><td>Verifica se favorito existe</td><td>✓</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/favorites</td><td>Adiciona favorito (INSERT IGNORE — idempotente)</td><td>✓</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/favorites/:profileId/:contentId</td><td>Atualiza metadados</td><td>✓</td></tr>
+    <tr><td><span class="badge delete">DELETE</span></td><td>/api/favorites/:profileId/:contentId</td><td>Remove favorito</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Histórico — <code>/api/history</code></h3>
+<table>
+  <thead><tr><th>Método</th><th>Rota</th><th>Descrição</th><th>Auth</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge get">GET</span></td><td>/api/history/recommendations</td><td>Recomendações baseadas nos géneros mais vistos</td><td>✓</td></tr>
+    <tr><td><span class="badge get">GET</span></td><td>/api/history</td><td>Histórico de visualizações; ?profileId=</td><td>✓</td></tr>
+    <tr><td><span class="badge post">POST</span></td><td>/api/history</td><td>Regista visualização; ON DUPLICATE KEY UPDATE times+1</td><td>✓</td></tr>
+    <tr><td><span class="badge put">PUT</span></td><td>/api/history/:profileId/:contentId</td><td>Atualiza entrada manualmente</td><td>✓</td></tr>
+    <tr><td><span class="badge delete">DELETE</span></td><td>/api/history/:profileId/:contentId</td><td>Remove entrada do histórico</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 3. AUTENTICAÇÃO -->
+<h1>3. Autenticação e Sessões</h1>
+
+<p>A autenticação é gerida pelo módulo <strong>Passport.js</strong> com a estratégia <em>LocalStrategy</em>.</p>
+
+<h2>Fluxo de login</h2>
+<ol>
+  <li>O frontend envia <code>POST /api/auth/login</code> com <code>{ email, password }</code>.</li>
+  <li>A <em>LocalStrategy</em> procura o utilizador por email na tabela <code>users</code>.</li>
+  <li>Compara a password com o hash armazenado via <code>bcryptjs.compare()</code>.</li>
+  <li>Em caso de sucesso, <code>req.login()</code> serializa o <code>id</code> do utilizador na sessão.</li>
+  <li>O <code>activeProfileId</code> (primeiro perfil do utilizador) é armazenado em <code>req.session.activeProfileId</code>.</li>
+  <li>As sessões são mantidas por 7 dias com cookie <code>httpOnly</code>.</li>
+</ol>
+
+<h2>Hashing de passwords</h2>
+<p>
+  Todas as passwords são armazenadas como hash bcrypt com fator de custo 10 (<code>bcryptjs.hash(password, 10)</code>).
+  A comparação é feita com <code>bcryptjs.compare()</code>, nunca comparando plaintext.
+</p>
+
+<h2>Middleware <code>requireAuth</code></h2>
+<p>Presente em todas as rotas que requerem autenticação. Verifica <code>req.user</code> (preenchido pelo Passport) e devolve <code>401</code> se ausente.</p>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 4. INTEGRAÇÃO AJAX -->
+<h1>4. Integração Frontend–Backend (AJAX)</h1>
+
+<p>
+  Toda a comunicação entre as páginas e a API é feita através do módulo <code>js/services/apiService.js</code>,
+  que encapsula o <code>fetch</code> nativo.
+</p>
+
+<pre>
+// apiService.js (simplificado)
+const BASE = '/api';
+
+async function request(method, path, body = null) {
+  const options = {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin'   // envia o cookie de sessão
+  };
+  if (body !== null) options.body = JSON.stringify(body);
+
+  const res  = await fetch(BASE + path, options);
+  if (res.status === 204) return null;
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw Object.assign(new Error(data.error || res.statusText), { status: res.status });
+  return data;
+}
+
+export const api = {
+  get: (path)        => request('GET',    path),
+  post: (path, body) => request('POST',   path, body),
+  put:  (path, body) => request('PUT',    path, body),
+  del:  (path)       => request('DELETE', path)
+};
+</pre>
+
+<p>
+  Cada página JS importa <code>api</code> e usa <code>async/await</code> para carregar os dados necessários,
+  construindo o DOM com a função utilitária <code>el()</code> (sem <code>innerHTML</code>).
+</p>
+<p>
+  A migração da Fase 1 (localStorage) para a Fase 2 (API) foi feita página a página, substituindo as
+  chamadas a <code>StorageService</code> e <code>AuthService</code> por chamadas ao <code>apiService</code>.
+</p>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 5. OPÇÕES -->
+<h1>5. Descrição das Opções Tomadas</h1>
+
+<h2>mysql2/promise em vez de mysql</h2>
+<p>
+  Utilizou-se o driver <code>mysql2</code> com a API de Promises nativa em vez do callback-based <code>mysql</code>,
+  permitindo usar <code>async/await</code> em todas as rotas sem necessidade de utilitários de promisificação.
+  O pool de ligações garante reutilização eficiente das conexões.
+</p>
+
+<h2>ON DUPLICATE KEY UPDATE no histórico</h2>
+<p>
+  Em vez de verificar se existe uma entrada no histórico antes de inserir (dois queries), usa-se um único
+  <code>INSERT … ON DUPLICATE KEY UPDATE times = times + 1, watched_at = NOW()</code>.
+  Isto é atómico e mais eficiente, evitando race conditions.
+</p>
+
+<h2>INSERT IGNORE nos favoritos</h2>
+<p>
+  O <code>INSERT IGNORE</code> torna a adição de um favorito idempotente: se o registo já existir (PK composta),
+  o MySQL ignora o erro em silêncio. O cliente pode chamar o endpoint múltiplas vezes sem efeitos secundários.
+</p>
+
+<h2>Coluna JSON para o elenco (cast)</h2>
+<p>
+  O elenco de um conteúdo é um array de strings. Armazenou-se numa coluna <code>JSON</code> nativa do MySQL 8,
+  que garante validação de formato e permite parsing automático pelo driver <code>mysql2</code>.
+</p>
+
+<h2>Rota /recommendations antes de /:profileId</h2>
+<p>
+  No ficheiro <code>routes/history.js</code>, a rota <code>GET /recommendations</code> é declarada
+  <strong>antes</strong> de <code>GET /</code> e <code>DELETE /:profileId/:contentId</code>. Se fosse declarada
+  depois de um padrão paramétrico, o Express capturaria a string <em>"recommendations"</em> como valor do
+  parâmetro, causando um erro de base de dados.
+</p>
+
+<h2>snake_case → camelCase via mapRow()</h2>
+<p>
+  O MySQL devolve colunas em snake_case (ex: <code>category_id</code>). Para manter consistência com
+  as convenções JavaScript, cada rota possui uma função <code>mapRow()</code> que converte os nomes
+  antes de serializar para JSON. O frontend nunca lida com snake_case.
+</p>
+
+<h2>activeProfileId na sessão (não no objeto user)</h2>
+<p>
+  O perfil ativo é um estado de sessão transitório (pode ser alterado sem novo login). Armazena-se em
+  <code>req.session.activeProfileId</code> em vez de no objeto Passport para não obrigar a re-serialização
+  do utilizador. A rota <code>PUT /api/auth/profile</code> atualiza este valor.
+</p>
+
+<h2>Servidor estático com fallback SPA</h2>
+<p>
+  O Express serve os ficheiros estáticos da pasta <code>ESTFlix/</code> com <code>express.static()</code>.
+  Pedidos a caminhos não-API que não correspondam a ficheiros existentes são redireccionados para
+  <code>login.html</code>, simulando o comportamento de uma Single Page Application.
+</p>
+
+
+<!-- ═══════════════════════════════════════════════════════════ 6. LIMITAÇÕES -->
+<h1>6. Limitações Técnicas e Trabalho Futuro</h1>
+
+<h2>Limitações atuais</h2>
+<ul>
+  <li><strong>HTTPS ausente:</strong> a aplicação corre em HTTP. Em produção seria necessário TLS/SSL, nomeadamente para proteger os cookies de sessão.</li>
+  <li><strong>Sem rate limiting:</strong> não existe proteção contra ataques de força bruta no endpoint de login.</li>
+  <li><strong>Sem upload de imagens:</strong> as imagens dos conteúdos são URLs externas (TMDB). Não é possível fazer upload local.</li>
+  <li><strong>Sem refresh de sessão:</strong> a sessão expira ao fim de 7 dias sem aviso ao utilizador.</li>
+  <li><strong>Recomendações simples:</strong> o algoritmo baseia-se apenas no género mais visto, sem pesos de preferência ou filtragem colaborativa.</li>
+  <li><strong>Sem paginação:</strong> a listagem de conteúdos devolve todos os registos de uma vez, o que pode degradar o desempenho com catálogos grandes.</li>
+  <li><strong>Credenciais no código:</strong> a password da base de dados está hardcoded no <code>db.js</code>. Em produção, deve ser movida para variáveis de ambiente (<code>.env</code>).</li>
+</ul>
+
+<h2>Ideias para desenvolvimento futuro</h2>
+<ul>
+  <li>Implementar paginação e ordenação nas rotas GET de conteúdos.</li>
+  <li>Adicionar sistema de avaliação (rating) por utilizador em vez de rating fixo.</li>
+  <li>Recomendações com filtragem colaborativa (utilizadores com histórico semelhante).</li>
+  <li>Upload de imagens de poster e avatares de perfil.</li>
+  <li>Notificações em tempo real com WebSockets (ex: novo conteúdo adicionado).</li>
+  <li>Migrar para variáveis de ambiente com suporte a <code>.env</code> via <code>dotenv</code>.</li>
+  <li>Testes automatizados com Jest para as rotas da API.</li>
+  <li>Deploy em nuvem (Railway, Render, ou VPS) com base de dados remota.</li>
+</ul>
+
+</div><!-- .page -->
+</body>
+</html>
