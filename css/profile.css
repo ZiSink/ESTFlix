@@ -1,0 +1,35 @@
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.profile-card {
+  padding: 16px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, .03);
+  display: grid;
+  gap: 12px;
+}
+.profile-card.active {
+  border-color: rgba(66, 165, 255, .45);
+  box-shadow: 0 0 0 1px rgba(66, 165, 255, .2) inset;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(66,165,255,.38), rgba(124,92,255,.34));
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

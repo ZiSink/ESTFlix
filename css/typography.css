@@ -1,0 +1,22 @@
+h1, h2 {
+  font-family: 'Syne', "Segoe UI", system-ui, sans-serif;
+  letter-spacing: -.02em;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+.muted { color: var(--muted); font-size: .9rem; }
+
+.hero-text,
+.detail-description {
+  color: var(--muted);
+  font-size: 1.02rem;
+  max-width: 62ch;
+}

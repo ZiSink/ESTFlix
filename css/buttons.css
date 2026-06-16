@@ -1,0 +1,32 @@
+.btn {
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s, box-shadow .18s, border-color .18s;
+}
+.btn:hover { background: rgba(255, 255, 255, .04); }
+
+.btn.primary {
+  background: var(--primary);
+  border-color: transparent;
+  color: white;
+}
+.btn.primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 18px rgba(59, 158, 255, .35);
+}
+
+.btn.ghost { background: rgba(255, 255, 255, .03); }
+.btn.ghost:hover { background: rgba(255, 255, 255, .08); }
+
+.btn.compact { padding: 8px 10px; }
+
+.btn.danger {
+  border-color: rgba(255, 59, 59, .55);
+  color: var(--danger);
+}
+.btn.danger:hover { background: rgba(255, 59, 59, .08); }

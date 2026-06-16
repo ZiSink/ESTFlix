@@ -1,0 +1,59 @@
+.admin-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.kpi {
+  padding: 14px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, .03);
+  transition: transform .2s, box-shadow .2s;
+}
+.kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+}
+.kpi .value {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+/* ── Tables ────────────────────────────────────────────────────── */
+.table-wrap {
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: var(--r-md);
+}
+.table th,
+.table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.table th {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: .92rem;
+}
+.table tr:hover td { background: rgba(255, 255, 255, .02); }
+
+.table.compact th,
+.table.compact td { padding: 8px 10px; }

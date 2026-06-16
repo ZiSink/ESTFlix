@@ -1,0 +1,113 @@
+/* ── Hero ──────────────────────────────────────────────────────── */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, .85fr);
+  gap: 16px;
+  padding: 24px;
+  overflow: hidden;
+  position: relative;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: auto -80px -80px auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(66,165,255,.18), transparent 68%);
+  pointer-events: none;
+}
+.hero h1,
+.detail-copy h1,
+.panel-title {
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1.02;
+  margin: 0;
+  max-width: 12ch;
+}
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.hero-panel {
+  padding: 20px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid var(--border);
+  animation: heroFadeUp .55s .15s ease both;
+}
+.panel-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .75rem;
+}
+
+/* ── Home hero variant ─────────────────────────────────────────── */
+.hero-home {
+  align-items: center;
+  background:
+    radial-gradient(ellipse 65% 80% at 110% 50%, rgba(59,158,255,.09), transparent 60%),
+    var(--surface);
+  border-color: rgba(59, 158, 255, .14);
+}
+.hero-copy h1             { animation: heroFadeUp .5s ease both; }
+.hero-copy .hero-text     { animation: heroFadeUp .5s .1s ease both; }
+.hero-copy .hero-actions  { animation: heroFadeUp .5s .2s ease both; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-poster-img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 2 / 3;
+  max-height: 280px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--r-md);
+  margin-bottom: 12px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.06);
+  background: var(--surface-2);
+  transition: opacity .4s ease;
+}
+.hero-poster-img[src=""] { display: none; }
+
+/* ── Sections ──────────────────────────────────────────────────── */
+.section-block { margin-top: 22px; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.section-head h2,
+.hero-panel h2 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+/* ── Generic layout ────────────────────────────────────────────── */
+.split-panel {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 18px;
+}
+
+.notice {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, .03);
+}
+
+.empty-state {
+  padding: 22px;
+  text-align: center;
+}
