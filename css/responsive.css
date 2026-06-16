@@ -41,6 +41,28 @@
   .poster-link img { height: 220px; }
 }
 
+@media (max-width: 600px) {
+  .hamburger-btn { display: flex; }
+
+  .nav-right {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    order: 4;
+    padding: 8px 0 4px;
+    border-top: 1px solid var(--border);
+    gap: 2px;
+  }
+  .nav.open .nav-right { display: flex; }
+
+  .nav-right .link,
+  .nav-right .btn {
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 500px) {
   .poster-grid { grid-template-columns: repeat(2, 1fr); }
 
@@ -55,6 +77,6 @@
   }
   .chip { white-space: nowrap; flex-shrink: 0; }
 
-  .nav       { gap: 6px; }
-  .nav-right { gap: 6px; }
+  .nav      { gap: 6px; }
+  .nav-left { gap: 6px; }
 }

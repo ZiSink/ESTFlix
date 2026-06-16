@@ -77,3 +77,21 @@
   border-color: var(--border);
   background: rgba(255, 255, 255, .03);
 }
+
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.1rem;
+  padding: 6px 11px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  line-height: 1;
+  min-width: 38px;
+  min-height: 38px;
+}
+.hamburger-btn:hover { background: rgba(255, 255, 255, .04); }
