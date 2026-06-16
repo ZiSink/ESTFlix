@@ -4,6 +4,6 @@ export class Profile {
     this.userId = userId;
     this.name = name;
     this.avatarUrl = avatarUrl ?? "";
-    this.role = role ?? "USER"; // USER | ADMIN
+    this.role = role ?? "USER";
   }
 }

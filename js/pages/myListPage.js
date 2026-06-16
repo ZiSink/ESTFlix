@@ -44,7 +44,6 @@ async function render() {
   const categoriesById = new Map();
   const contentById    = new Map(allContents.map(c => [c.id, c]));
 
-  // ── Favoritos ────────────────────────────────────────────────────────────────
   const favorites = favData
     .map(f => contentById.get(f.contentId))
     .filter(Boolean)
@@ -85,7 +84,6 @@ async function render() {
     }
   }
 
-  // ── Histórico ────────────────────────────────────────────────────────────────
   if (historyTitle) historyTitle.textContent = `Watch history — ${profile.name}`;
   if (historyMeta)  historyMeta.textContent  = `${histData.length} title${histData.length === 1 ? '' : 's'} watched`;
 

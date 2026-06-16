@@ -10,20 +10,17 @@ function requireAuth(req, res, next) {
   next();
 }
 
-// GET /api/users
 router.get('/', requireAuth, async (req, res) => {
   const [rows] = await db.query('SELECT id, email, created_at FROM users ORDER BY id');
   res.json(rows);
 });
 
-// GET /api/users/:id
 router.get('/:id', requireAuth, async (req, res) => {
   const [rows] = await db.query('SELECT id, email, created_at FROM users WHERE id = ?', [req.params.id]);
   if (!rows.length) return res.status(404).json({ error: 'Utilizador não encontrado.' });
   res.json(rows[0]);
 });
 
-// POST /api/users  (criação direta – registo preferencial via /api/auth/register)
 router.post('/', async (req, res) => {
   const { email, password, name } = req.body;
   if (!email || !password || !name)
@@ -42,7 +39,6 @@ router.post('/', async (req, res) => {
   res.status(201).json(rows[0]);
 });
 
-// PUT /api/users/:id
 router.put('/:id', requireAuth, async (req, res) => {
   if (String(req.user.id) !== String(req.params.id))
     return res.status(403).json({ error: 'Sem permissão para alterar este utilizador.' });
@@ -64,7 +60,6 @@ router.put('/:id', requireAuth, async (req, res) => {
   res.json(rows[0]);
 });
 
-// DELETE /api/users/:id
 router.delete('/:id', requireAuth, async (req, res) => {
   if (String(req.user.id) !== String(req.params.id))
     return res.status(403).json({ error: 'Sem permissão.' });

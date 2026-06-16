@@ -7,7 +7,7 @@ export class Content {
     this.year = year;
     this.rating = rating;
     this.imageUrl = imageUrl;
-    this.type = type; // movie | series
+    this.type = type;
     this.runtimeMinutes = runtimeMinutes ?? null;
     this.cast = Array.isArray(cast) ? cast : [];
     this.tagline = tagline ?? "";

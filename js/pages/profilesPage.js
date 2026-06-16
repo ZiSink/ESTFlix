@@ -72,7 +72,6 @@ async function render() {
     }))
   ]));
 
-  // Select profile
   host.querySelectorAll('[data-select]').forEach(btn => {
     btn.addEventListener('click', async () => {
       await api.put('/auth/profile', { profileId: Number(btn.getAttribute('data-select')) });
@@ -80,7 +79,6 @@ async function render() {
     });
   });
 
-  // Edit profile — set draft and re-render to show form
   host.querySelectorAll('[data-edit]').forEach(btn => {
     btn.addEventListener('click', () => {
       editDraftId = Number(btn.getAttribute('data-edit'));
@@ -88,7 +86,6 @@ async function render() {
     });
   });
 
-  // Delete profile
   const deleteMsg = el('p', { className: 'msg' });
   host.querySelectorAll('[data-delete]').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -102,7 +99,6 @@ async function render() {
       try {
         await api.del(`/profiles/${id}`);
         if (editDraftId === id) editDraftId = null;
-        // If deleted profile was active, switch to first remaining
         if (id === activeId) {
           const remaining = profiles.find(p => p.id !== id);
           if (remaining) await api.put('/auth/profile', { profileId: remaining.id });
@@ -116,7 +112,6 @@ async function render() {
     });
   });
 
-  // Edit form (shown when editDraftId is set)
   const formSection = el('section', { className: 'card' });
   const formMsg     = el('p', { className: 'msg' });
   const nameInput   = el('input', { type: 'text', placeholder: 'Profile name' });

@@ -1,6 +1,3 @@
--- ESTFlix – Script de criação da base de dados
--- Executar: mysql -u root -p < schema.sql
-
 CREATE DATABASE IF NOT EXISTS estflix
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;

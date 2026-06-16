@@ -1,28 +1,20 @@
--- ESTFlix – Script de inserção de dados iniciais
--- Executar APÓS schema.sql: mysql -u root -proot estflix < seed.sql
--- Passwords: admin@estflix.test → admin | viewer@estflix.test → viewer
-
 USE estflix;
 
--- ── Utilizadores ──────────────────────────────────────────────────────────────
 INSERT IGNORE INTO users (email, password_hash) VALUES
   ('admin@estflix.test',  '$2a$10$otVm6XSGWfjXShCiUw24huI/4kjV/Wf6lx2yIFIC27P/cAt6XmNN2'),
   ('viewer@estflix.test', '$2a$10$yFaopDE6SsM2ucUfbQDqaepJDb.BMLOZAx2P3OaXLeS8B2TKSM4WS');
 
--- ── Perfis ────────────────────────────────────────────────────────────────────
 INSERT IGNORE INTO profiles (user_id, name, role) VALUES
   ((SELECT id FROM users WHERE email = 'admin@estflix.test'),  'Admin',     'ADMIN'),
   ((SELECT id FROM users WHERE email = 'admin@estflix.test'),  'Cinephile', 'USER'),
   ((SELECT id FROM users WHERE email = 'viewer@estflix.test'), 'Viewer',    'USER');
 
--- ── Categorias ────────────────────────────────────────────────────────────────
 INSERT IGNORE INTO categories (name) VALUES
   ('Action'),
   ('Drama'),
   ('Comedy'),
   ('Sci-Fi');
 
--- ── Conteúdos ─────────────────────────────────────────────────────────────────
 INSERT IGNORE INTO contents
   (title, description, tagline, category_id, year, rating, image_url, type, runtime_minutes, cast, trailer_url)
 VALUES

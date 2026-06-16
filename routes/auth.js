@@ -6,7 +6,6 @@ const db       = require('../db');
 
 const router = express.Router();
 
-// GET /api/auth/me
 router.get('/me', async (req, res) => {
   if (!req.user) return res.json({ user: null, activeProfileId: null, profile: null });
 
@@ -24,7 +23,6 @@ router.get('/me', async (req, res) => {
   });
 });
 
-// POST /api/auth/register
 router.post('/register', async (req, res) => {
   const { email, password, name } = req.body;
   if (!email || !password || !name)
@@ -50,7 +48,6 @@ router.post('/register', async (req, res) => {
   });
 });
 
-// POST /api/auth/login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', async (err, user, info) => {
     if (err) return next(err);
@@ -65,7 +62,6 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// POST /api/auth/logout
 router.post('/logout', (req, res) => {
   req.logout(err => {
     if (err) return res.status(500).json({ error: 'Logout falhou.' });
@@ -73,7 +69,6 @@ router.post('/logout', (req, res) => {
   });
 });
 
-// PUT /api/auth/profile – define o perfil ativo na sessão
 router.put('/profile', (req, res) => {
   if (!req.user) return res.status(401).json({ error: 'Não autenticado.' });
   req.session.activeProfileId = req.body.profileId ?? null;

@@ -13,20 +13,17 @@ function mapRow(r) {
   return { id: r.id, userId: r.user_id, name: r.name, avatarUrl: r.avatar_url, role: r.role };
 }
 
-// GET /api/profiles
 router.get('/', requireAuth, async (req, res) => {
   const [rows] = await db.query('SELECT * FROM profiles WHERE user_id = ? ORDER BY id', [req.user.id]);
   res.json(rows.map(mapRow));
 });
 
-// GET /api/profiles/:id
 router.get('/:id', requireAuth, async (req, res) => {
   const [rows] = await db.query('SELECT * FROM profiles WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
   if (!rows.length) return res.status(404).json({ error: 'Perfil não encontrado.' });
   res.json(mapRow(rows[0]));
 });
 
-// POST /api/profiles
 router.post('/', requireAuth, async (req, res) => {
   const { name, avatarUrl, role } = req.body;
   if (!name) return res.status(400).json({ error: 'Nome é obrigatório.' });
@@ -42,7 +39,6 @@ router.post('/', requireAuth, async (req, res) => {
   res.status(201).json(mapRow(rows[0]));
 });
 
-// PUT /api/profiles/:id
 router.put('/:id', requireAuth, async (req, res) => {
   const { name, avatarUrl } = req.body;
   if (!name) return res.status(400).json({ error: 'Nome é obrigatório.' });
@@ -63,7 +59,6 @@ router.put('/:id', requireAuth, async (req, res) => {
   res.json(mapRow(rows[0]));
 });
 
-// DELETE /api/profiles/:id
 router.delete('/:id', requireAuth, async (req, res) => {
   const [result] = await db.query('DELETE FROM profiles WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
   if (!result.affectedRows) return res.status(404).json({ error: 'Perfil não encontrado.' });

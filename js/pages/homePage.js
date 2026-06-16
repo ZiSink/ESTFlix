@@ -134,7 +134,6 @@ async function render() {
     ]));
   }
 
-  // Recomendações personalizadas (apenas para utilizadores autenticados com perfil)
   if (session.activeProfileId && !type && !categoryId && !query) {
     const main = document.querySelector('main.container');
     const oldRec = document.getElementById('recSection');

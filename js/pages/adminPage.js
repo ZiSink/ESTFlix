@@ -72,7 +72,6 @@ async function render() {
 
   host.appendChild(shell);
 
-  // event delegation – category delete/edit
   host.querySelectorAll('[data-category-delete]').forEach(btn => {
     btn.addEventListener('click', async () => {
       const cid = Number(btn.getAttribute('data-category-delete'));
@@ -94,7 +93,6 @@ async function render() {
     });
   });
 
-  // event delegation – content delete/edit
   host.querySelectorAll('[data-content-delete]').forEach(btn => {
     btn.addEventListener('click', async () => {
       const cid = Number(btn.getAttribute('data-content-delete'));
@@ -112,7 +110,6 @@ async function render() {
   });
 }
 
-// ── Category form ──────────────────────────────────────────────────────────────
 function buildCategoryForm(categories) {
   const editing = categories.find(c => c.id === categoryDraftId) ?? null;
   const nameInput = el('input', { type: 'text', placeholder: 'New category' });
@@ -152,7 +149,6 @@ function buildCategoryForm(categories) {
   return [form, formMsg];
 }
 
-// ── Content form ───────────────────────────────────────────────────────────────
 function buildContentForm(categories, contents) {
   const editing = contents.find(c => c.id === contentDraftId) ?? null;
 
@@ -248,7 +244,6 @@ function buildContentForm(categories, contents) {
   return [form, formMsg];
 }
 
-// ── Tables ─────────────────────────────────────────────────────────────────────
 function renderCategoryTable(categories) {
   return el('div', { className: 'table-wrap' }, [
     el('table', { className: 'table compact' }, [

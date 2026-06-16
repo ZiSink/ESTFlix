@@ -28,7 +28,6 @@ function mapRow(row) {
   };
 }
 
-// GET /api/contents
 router.get('/', async (req, res) => {
   let sql = 'SELECT * FROM contents WHERE 1=1';
   const params = [];
@@ -40,14 +39,12 @@ router.get('/', async (req, res) => {
   res.json(rows.map(mapRow));
 });
 
-// GET /api/contents/:id
 router.get('/:id', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM contents WHERE id = ?', [req.params.id]);
   if (!rows.length) return res.status(404).json({ error: 'Conteúdo não encontrado.' });
   res.json(mapRow(rows[0]));
 });
 
-// POST /api/contents
 router.post('/', requireAuth, async (req, res) => {
   const { title, description, categoryId, year, rating, imageUrl, type, runtimeMinutes, cast, tagline, trailerUrl } = req.body;
   if (!title || !description || !imageUrl)
@@ -65,7 +62,6 @@ router.post('/', requireAuth, async (req, res) => {
   res.status(201).json(mapRow(rows[0]));
 });
 
-// PUT /api/contents/:id
 router.put('/:id', requireAuth, async (req, res) => {
   const { title, description, categoryId, year, rating, imageUrl, type, runtimeMinutes, cast, tagline, trailerUrl } = req.body;
   if (!title || !description || !imageUrl)
@@ -85,7 +81,6 @@ router.put('/:id', requireAuth, async (req, res) => {
   res.json(mapRow(rows[0]));
 });
 
-// DELETE /api/contents/:id
 router.delete('/:id', requireAuth, async (req, res) => {
   const [result] = await db.query('DELETE FROM contents WHERE id = ?', [req.params.id]);
   if (!result.affectedRows) return res.status(404).json({ error: 'Conteúdo não encontrado.' });

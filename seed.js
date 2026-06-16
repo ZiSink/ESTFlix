@@ -25,7 +25,6 @@ async function getId(table, field, value) {
 async function seed() {
   console.log('A popular base de dados ESTFlix...');
 
-  // users
   const adminHash  = await bcrypt.hash('admin',  10);
   const viewerHash = await bcrypt.hash('viewer', 10);
 
@@ -35,12 +34,10 @@ async function seed() {
   const adminId  = await getId('users', 'email', 'admin@estflix.test');
   const viewerId = await getId('users', 'email', 'viewer@estflix.test');
 
-  // profiles – INSERT IGNORE garante idempotência
   await db.query('INSERT IGNORE INTO profiles (user_id, name, role) VALUES (?, ?, ?)', [adminId,  'Admin',     'ADMIN']);
   await db.query('INSERT IGNORE INTO profiles (user_id, name, role) VALUES (?, ?, ?)', [adminId,  'Cinephile', 'USER']);
   await db.query('INSERT IGNORE INTO profiles (user_id, name, role) VALUES (?, ?, ?)', [viewerId, 'Viewer',    'USER']);
 
-  // categories
   for (const name of CATEGORIES) {
     await db.query('INSERT IGNORE INTO categories (name) VALUES (?)', [name]);
   }
@@ -48,7 +45,6 @@ async function seed() {
   const [catRows] = await db.query('SELECT id, name FROM categories');
   const cats = Object.fromEntries(catRows.map(c => [c.name, c.id]));
 
-  // contents
   for (const c of CONTENTS) {
     await db.query(
       'INSERT IGNORE INTO contents (title, description, category_id, year, rating, image_url, type, runtime_minutes, cast, tagline, trailer_url) VALUES (?,?,?,?,?,?,?,?,?,?,?)',

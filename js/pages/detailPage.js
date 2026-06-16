@@ -46,7 +46,6 @@ async function render() {
     watchEntry     = hist.find(h => h.contentId === item.id) ?? null;
   }
 
-  // Related titles (same category)
   const allContents  = await api.get('/contents').catch(() => []);
   const relatedTitles = allContents.filter(c => c.id !== item.id && c.categoryId === item.categoryId).slice(0, 3);
 

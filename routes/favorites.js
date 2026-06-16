@@ -9,7 +9,6 @@ function requireAuth(req, res, next) {
   next();
 }
 
-// GET /api/favorites?profileId=
 router.get('/', requireAuth, async (req, res) => {
   const profileId = req.query.profileId || req.session.activeProfileId;
   if (!profileId) return res.json([]);
@@ -17,7 +16,6 @@ router.get('/', requireAuth, async (req, res) => {
   res.json(rows.map(r => ({ profileId: r.profile_id, contentId: r.content_id })));
 });
 
-// POST /api/favorites
 router.post('/', requireAuth, async (req, res) => {
   const { profileId, contentId } = req.body;
   if (!profileId || !contentId)
@@ -26,7 +24,6 @@ router.post('/', requireAuth, async (req, res) => {
   res.status(201).json({ profileId, contentId });
 });
 
-// DELETE /api/favorites/:profileId/:contentId
 router.delete('/:profileId/:contentId', requireAuth, async (req, res) => {
   await db.query('DELETE FROM favorites WHERE profile_id = ? AND content_id = ?',
     [req.params.profileId, req.params.contentId]);

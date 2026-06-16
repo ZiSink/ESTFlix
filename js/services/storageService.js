@@ -7,8 +7,8 @@ function defaultDb() {
     profiles: [],
     categories: [],
     contents: [],
-    favorites: [], // { profileId, contentId }
-    history: [],   // { profileId, contentId, watchedAt, times }
+    favorites: [], 
+    history: [], 
     session: { userId: null, activeProfileId: null, rememberMe: false }
   };
 }

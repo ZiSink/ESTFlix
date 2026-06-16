@@ -10,7 +10,6 @@ const db       = require('./db');
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-// ── middleware ────────────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '.')));
 
@@ -21,7 +20,6 @@ app.use(session({
   cookie:            { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }
 }));
 
-// ── passport ──────────────────────────────────────────────────────────────────
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
   try {
     const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email.toLowerCase().trim()]);
@@ -45,7 +43,6 @@ passport.deserializeUser(async (id, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ── API routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth',       require('./routes/auth'));
 app.use('/api/users',      require('./routes/users'));
 app.use('/api/categories', require('./routes/categories'));
@@ -54,13 +51,11 @@ app.use('/api/profiles',   require('./routes/profiles'));
 app.use('/api/favorites',  require('./routes/favorites'));
 app.use('/api/history',    require('./routes/history'));
 
-// ── SPA fallback – serve index/login for unmatched paths ─────────────────────
 app.use((req, res) => {
   if (!req.path.startsWith('/api')) res.sendFile(path.join(__dirname, 'login.html'));
   else res.status(404).json({ error: 'Not found.' });
 });
 
-// ── global error handler ──────────────────────────────────────────────────────
 app.use((err, req, res, _next) => {
   console.error(err.stack || err.message);
   res.status(500).json({ error: 'Internal server error.' });

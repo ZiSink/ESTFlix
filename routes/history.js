@@ -25,13 +25,9 @@ function mapContent(r) {
   };
 }
 
-// GET /api/history/recommendations?profileId=
-// Deve estar antes de /:profileId para não ser capturado pelo param
 router.get('/recommendations', requireAuth, async (req, res) => {
   const profileId = req.query.profileId || req.session.activeProfileId;
   if (!profileId) return res.json([]);
-
-  // Géneros mais vistos pelo perfil
   const [genreRows] = await db.query(`
     SELECT c.category_id, COUNT(*) AS cnt
     FROM history h
@@ -43,7 +39,6 @@ router.get('/recommendations', requireAuth, async (req, res) => {
   `, [profileId]);
 
   if (!genreRows.length) {
-    // Sem histórico – devolver os mais bem classificados
     const [top] = await db.query('SELECT * FROM contents ORDER BY rating DESC LIMIT 6');
     return res.json(top.map(mapContent));
   }
@@ -63,7 +58,6 @@ router.get('/recommendations', requireAuth, async (req, res) => {
   sql += ' ORDER BY rating DESC LIMIT 6';
 
   const [rows] = await db.query(sql, params);
-  // Completar com tops caso faltem resultados
   if (rows.length < 3) {
     const [extra] = await db.query(
       'SELECT * FROM contents ORDER BY rating DESC LIMIT 6'
@@ -77,7 +71,6 @@ router.get('/recommendations', requireAuth, async (req, res) => {
   res.json(rows.map(mapContent));
 });
 
-// GET /api/history?profileId=
 router.get('/', requireAuth, async (req, res) => {
   const profileId = req.query.profileId || req.session.activeProfileId;
   if (!profileId) return res.json([]);
@@ -87,7 +80,6 @@ router.get('/', requireAuth, async (req, res) => {
   res.json(rows.map(mapRow));
 });
 
-// POST /api/history
 router.post('/', requireAuth, async (req, res) => {
   const { profileId, contentId } = req.body;
   if (!profileId || !contentId)
@@ -101,7 +93,6 @@ router.post('/', requireAuth, async (req, res) => {
   res.status(201).json(mapRow(rows[0]));
 });
 
-// DELETE /api/history/:profileId/:contentId
 router.delete('/:profileId/:contentId', requireAuth, async (req, res) => {
   await db.query('DELETE FROM history WHERE profile_id = ? AND content_id = ?',
     [req.params.profileId, req.params.contentId]);

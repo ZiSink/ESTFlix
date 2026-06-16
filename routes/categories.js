@@ -9,20 +9,17 @@ function requireAuth(req, res, next) {
   next();
 }
 
-// GET /api/categories
 router.get('/', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM categories ORDER BY name');
   res.json(rows);
 });
 
-// GET /api/categories/:id
 router.get('/:id', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM categories WHERE id = ?', [req.params.id]);
   if (!rows.length) return res.status(404).json({ error: 'Categoria não encontrada.' });
   res.json(rows[0]);
 });
 
-// POST /api/categories
 router.post('/', requireAuth, async (req, res) => {
   const { name } = req.body;
   if (!name) return res.status(400).json({ error: 'Nome é obrigatório.' });
@@ -35,7 +32,6 @@ router.post('/', requireAuth, async (req, res) => {
   res.status(201).json(rows[0]);
 });
 
-// PUT /api/categories/:id
 router.put('/:id', requireAuth, async (req, res) => {
   const { name } = req.body;
   if (!name) return res.status(400).json({ error: 'Nome é obrigatório.' });
@@ -50,7 +46,6 @@ router.put('/:id', requireAuth, async (req, res) => {
   res.json(rows[0]);
 });
 
-// DELETE /api/categories/:id
 router.delete('/:id', requireAuth, async (req, res) => {
   const [inUse] = await db.query('SELECT id FROM contents WHERE category_id = ? LIMIT 1', [req.params.id]);
   if (inUse.length)
