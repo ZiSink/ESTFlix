@@ -13,6 +13,18 @@ function mapRow(r) {
   return { profileId: r.profile_id, contentId: r.content_id, watchedAt: r.watched_at, times: r.times };
 }
 
+function mapContent(r) {
+  return {
+    id: r.id, title: r.title, description: r.description,
+    categoryId: r.category_id, year: r.year,
+    rating: typeof r.rating === 'string' ? parseFloat(r.rating) : r.rating,
+    imageUrl: r.image_url, type: r.type,
+    runtimeMinutes: r.runtime_minutes,
+    cast: typeof r.cast === 'string' ? JSON.parse(r.cast) : (r.cast ?? []),
+    tagline: r.tagline, trailerUrl: r.trailer_url
+  };
+}
+
 // GET /api/history/recommendations?profileId=
 // Deve estar antes de /:profileId para não ser capturado pelo param
 router.get('/recommendations', requireAuth, async (req, res) => {
@@ -33,7 +45,7 @@ router.get('/recommendations', requireAuth, async (req, res) => {
   if (!genreRows.length) {
     // Sem histórico – devolver os mais bem classificados
     const [top] = await db.query('SELECT * FROM contents ORDER BY rating DESC LIMIT 6');
-    return res.json(top);
+    return res.json(top.map(mapContent));
   }
 
   const catIds     = genreRows.map(r => r.category_id);
@@ -62,7 +74,7 @@ router.get('/recommendations', requireAuth, async (req, res) => {
       if (rows.length >= 6) break;
     }
   }
-  res.json(rows);
+  res.json(rows.map(mapContent));
 });
 
 // GET /api/history?profileId=

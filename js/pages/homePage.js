@@ -43,7 +43,6 @@ function renderFeatured(all, categories) {
   if (featuredActions) {
     clear(featuredActions);
     featuredActions.appendChild(el('a', { className: 'btn primary', href: `detail.html?id=${featured.id}` }, ['Watch now']));
-    featuredActions.appendChild(el('a', { className: 'btn ghost',   href: 'home.html?type=movie' }, ['Browse movies']));
   }
 }
 
@@ -74,6 +73,17 @@ async function render() {
     api.get('/categories'),
     api.get('/auth/me').catch(() => ({ user: null, activeProfileId: null }))
   ]);
+
+  const navProfileLink = document.getElementById('navProfileLink');
+  if (navProfileLink) {
+    if (session.user) {
+      navProfileLink.textContent = 'Change profile';
+      navProfileLink.href = 'profiles.html';
+    } else {
+      navProfileLink.textContent = 'Login';
+      navProfileLink.href = 'login.html';
+    }
+  }
 
   let favoriteContentIds = new Set();
   if (session.activeProfileId) {

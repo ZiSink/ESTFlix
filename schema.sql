@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   id         INT AUTO_INCREMENT PRIMARY KEY,
   user_id    INT NOT NULL,
   name       VARCHAR(100) NOT NULL,
-  avatar_url TEXT DEFAULT '',
+  avatar_url TEXT,
   role       ENUM('USER', 'ADMIN') DEFAULT 'USER',
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
