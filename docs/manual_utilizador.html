@@ -403,10 +403,10 @@ Credenciais demo: admin@estflix.test / admin  |  viewer@estflix.test / viewer</p
 <div class="screen">
   <div class="screen-bar">
     <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-    <div class="url">localhost:3000/home.html</div>
+    <div class="url">localhost:3000/home.html — Desktop</div>
   </div>
   <div class="screen-body">
-<span class="red">  ESTFlix</span>  Home  My List  Admin               <span class="muted">Admin [Logout]</span>
+<span class="red">  ESTFlix</span>  Movies  Series  <span class="muted">────────────── 🔍 Search ──────────────</span>  My List  Change profile  Admin  <span class="muted">[Logout]</span>
 
   <span class="white">  The Dark Knight.</span>                   <span class="pill">★ 4.9</span> <span class="pill">2008</span> <span class="pill">Action</span>
   Batman raises the stakes in his war on crime…
@@ -430,11 +430,32 @@ Credenciais demo: admin@estflix.test / admin  |  viewer@estflix.test / viewer</p
   </div>
 </div>
 
+<div class="screen">
+  <div class="screen-bar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="url">localhost:3000/home.html — Mobile (≤600px)</div>
+  </div>
+  <div class="screen-body">
+<span class="red">  ESTFlix</span>  Movies  Series                                      <span class="yellow">☰</span>
+  <span class="muted">──────────────────── 🔍 Search ────────────────────</span>
+
+  <span class="muted">  (ao clicar em ☰ o menu expande)</span>
+
+<span class="red">  ESTFlix</span>  Movies  Series                                      <span class="yellow">✕</span>
+  <span class="muted">──────────────────── 🔍 Search ────────────────────</span>
+  My List
+  Change profile
+  Admin
+  [ Logout ]
+  </div>
+</div>
+
 <p><strong>Funcionalidades da página principal:</strong></p>
 <ul>
   <li><strong>Destaque:</strong> o conteúdo com melhor classificação aparece em grande no topo.</li>
   <li><strong>Filtros:</strong> podem ser combinados (ex: Séries de Sci-Fi com "breaking" na pesquisa).</li>
   <li><strong>Recomendações:</strong> visíveis quando há histórico; baseadas nos géneros mais vistos.</li>
+  <li><strong>Menu hamburger (☰):</strong> em ecrãs ≤600px os links de navegação (My List, Change profile, Admin, Logout) escondem-se atrás do botão ☰. Clicar abre o menu em coluna; clicar em ✕ ou fora fecha-o.</li>
 </ul>
 
 <h2>3.5 Detalhe de conteúdo</h2>
